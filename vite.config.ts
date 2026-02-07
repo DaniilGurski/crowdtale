@@ -5,16 +5,17 @@ import path from "path";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-      "@components": path.resolve(__dirname, "./src/components"),
-      "@assets": path.resolve(__dirname, "./src/assets"),
-      "@lib": path.resolve(__dirname, "./src/lib"),
-      "@services": path.resolve(__dirname, "./src/services"),
-      "@hooks": path.resolve(__dirname, "./src/hooks"),
-      "@T": path.resolve(__dirname, "./src/types"),
+    plugins: [react(), tailwindcss()],
+    resolve: {
+        alias: {
+            "@": path.resolve(__dirname, "./src"),
+            "@components": path.resolve(__dirname, "./src/components"),
+            "@pages": path.resolve(__dirname, "./src/pages"),
+            "@assets": path.resolve(__dirname, "./src/assets"),
+            "@lib": path.resolve(__dirname, "./src/lib"),
+            "@services": path.resolve(__dirname, "./src/services"),
+            "@hooks": path.resolve(__dirname, "./src/hooks"),
+            "@T": path.resolve(__dirname, "./src/types"),
+        },
     },
-  },
 });
