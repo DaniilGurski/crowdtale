@@ -13,6 +13,17 @@ export const router = createBrowserRouter([
                 <App />
             </PrivateRoute>
         ),
+
+        children: [
+            {
+                index: true,
+                element: <p> Discover Page </p>,
+            },
+            {
+                path: "/my-library",
+                element: <p> My library Page </p>,
+            },
+        ],
     },
     {
         path: "/login",
