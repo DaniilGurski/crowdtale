@@ -6,10 +6,8 @@ export default function App() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="p-4">
-        <div>
-          <Outlet />
-        </div>
+      <main className="w-full">
+        <Outlet />
       </main>
     </SidebarProvider>
   );

@@ -4,37 +4,38 @@ import GuestRoute from "@components/GuestRoute";
 import PrivateRoute from "@components/PrivateRoute";
 import Login from "@pages/Login";
 import AuthCallback from "@pages/AuthCallback";
+import DiscoverPage from "./pages/DiscoverPage";
 
 export const router = createBrowserRouter([
-    {
-        path: "/",
-        element: (
-            <PrivateRoute>
-                <App />
-            </PrivateRoute>
-        ),
+  {
+    path: "/",
+    element: (
+      <PrivateRoute>
+        <App />
+      </PrivateRoute>
+    ),
 
-        children: [
-            {
-                index: true,
-                element: <p> Discover Page </p>,
-            },
-            {
-                path: "/my-library",
-                element: <p> My library Page </p>,
-            },
-        ],
-    },
-    {
-        path: "/login",
-        element: (
-            <GuestRoute>
-                <Login />
-            </GuestRoute>
-        ),
-    },
-    {
-        path: "/auth/callback",
-        element: <AuthCallback />,
-    },
+    children: [
+      {
+        index: true,
+        element: <DiscoverPage />,
+      },
+      {
+        path: "/my-library",
+        element: <p> My library Page </p>,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: (
+      <GuestRoute>
+        <Login />
+      </GuestRoute>
+    ),
+  },
+  {
+    path: "/auth/callback",
+    element: <AuthCallback />,
+  },
 ]);

@@ -54,10 +54,7 @@ function SidebarLink({ to, children }: SidebarLinkProps) {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        cn(
-          "block rounded-sm bg-neutral-100 p-2 font-medium shadow-sm",
-          isActive && "bg-neutral-50",
-        )
+        cn("block rounded-sm p-2 font-medium", isActive && "bg-ring/10")
       }
     >
       {children}

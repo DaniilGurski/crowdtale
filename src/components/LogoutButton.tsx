@@ -16,5 +16,9 @@ export default function LogoutButton() {
     setUser(null);
   };
 
-  return <Button onClick={handleClick}> Logout </Button>;
+  return (
+    <Button variant="outline" onClick={handleClick}>
+      Logout
+    </Button>
+  );
 }
