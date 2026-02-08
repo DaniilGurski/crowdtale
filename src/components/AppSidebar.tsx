@@ -4,10 +4,13 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarHeader,
-} from "@/components/ui/sidebar";
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@components/ui/sidebar";
 import { LibraryBig } from "lucide-react";
 import { NavLink } from "react-router";
-import { cn } from "@/lib/utils";
+import { cn } from "@lib/utils";
 import type { PropsWithChildren } from "react";
 import LogoutButton from "@components/LogoutButton";
 
@@ -17,24 +20,26 @@ interface SidebarLinkProps extends PropsWithChildren {
 
 export default function AppSidebar() {
   return (
-    <Sidebar>
+    <Sidebar variant="floating">
       <SidebarHeader>
-        <h1 className="flex items-center gap-x-2">
-          <LibraryBig /> Collab Write
+        <h1 className="flex items-center gap-x-2 text-2xl">
+          <LibraryBig className="size-8" /> Collab Write
         </h1>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <nav>
-            <ul className="grid gap-y-2">
-              <li>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
                 <SidebarLink to="/"> Discover </SidebarLink>
-              </li>
-              <li>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
                 <SidebarLink to="/my-library"> My library </SidebarLink>
-              </li>
-            </ul>
-          </nav>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
@@ -49,7 +54,10 @@ function SidebarLink({ to, children }: SidebarLinkProps) {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        cn("block rounded-sm p-2 shadow-sm", isActive && "bg-neutral-100")
+        cn(
+          "block rounded-sm bg-neutral-100 p-2 font-medium shadow-sm",
+          isActive && "bg-neutral-50",
+        )
       }
     >
       {children}
