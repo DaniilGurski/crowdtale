@@ -15,14 +15,15 @@ interface StoryCardProps {
 }
 
 export default function StoryCard({ story }: StoryCardProps) {
-  const { title, genres, contents, creatorName, createdAt } = story;
+  const { title, genres, contents, creator, createdAt } = story;
   const introText = contents[0].text;
 
   const getDaysDiff = () => {
     const now = Date.now();
+    const createdAtDate = new Date(createdAt);
 
     const diffInDays = Math.floor(
-      (now - createdAt.getTime()) / (1000 * 60 * 60 * 24),
+      (now - createdAtDate.getTime()) / (1000 * 60 * 60 * 24),
     );
 
     return diffInDays;
@@ -48,7 +49,7 @@ export default function StoryCard({ story }: StoryCardProps) {
       <CardFooter className="grid gap-y-4">
         <div className="flex justify-between">
           <p className="flex gap-x-2">
-            <PenIcon /> <span> By: {creatorName} </span>
+            <PenIcon /> <span> By: {creator.username} </span>
           </p>
           <p className="flex gap-x-2">
             <Clock />
