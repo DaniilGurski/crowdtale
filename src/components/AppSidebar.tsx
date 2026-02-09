@@ -8,11 +8,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@components/ui/sidebar";
-import { LibraryBig } from "lucide-react";
+import { Compass, PencilLine, SquareLibrary } from "lucide-react";
 import { NavLink } from "react-router";
 import { cn } from "@lib/utils";
 import type { PropsWithChildren } from "react";
-import LogoutButton from "@components/LogoutButton";
 
 interface SidebarLinkProps extends PropsWithChildren {
   to: string;
@@ -20,10 +19,14 @@ interface SidebarLinkProps extends PropsWithChildren {
 
 export default function AppSidebar() {
   return (
-    <Sidebar variant="floating">
+    <Sidebar
+      className="h-screen w-min rounded-tr-3xl rounded-br-3xl shadow-sm sm:w-xs"
+      collapsible="none"
+    >
       <SidebarHeader>
-        <h1 className="flex items-center gap-x-2 text-2xl">
-          <LibraryBig className="size-8" /> Collab Write
+        <h1 className="flex items-center justify-center gap-x-2 text-xl sm:justify-start">
+          <PencilLine />
+          <span className="hidden font-bold sm:inline"> Collab Write </span>
         </h1>
       </SidebarHeader>
       <SidebarContent>
@@ -31,20 +34,23 @@ export default function AppSidebar() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
-                <SidebarLink to="/"> Discover </SidebarLink>
+                <SidebarLink to="/">
+                  <Compass />
+                  <span className="hidden sm:inline"> Discover </span>
+                </SidebarLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
-                <SidebarLink to="/my-library"> My library </SidebarLink>
+                <SidebarLink to="/my-library">
+                  <SquareLibrary />
+                  <span className="hidden sm:inline"> My library </span>
+                </SidebarLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <LogoutButton />
-      </SidebarFooter>
     </Sidebar>
   );
 }
@@ -54,7 +60,10 @@ function SidebarLink({ to, children }: SidebarLinkProps) {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        cn("block rounded-sm p-2 font-medium", isActive && "bg-ring/10")
+        cn(
+          "flex items-center gap-x-2 rounded-sm p-2 font-medium",
+          isActive && "bg-ring/10",
+        )
       }
     >
       {children}

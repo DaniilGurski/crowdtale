@@ -29,7 +29,7 @@ export default function StoryCard({ story }: StoryCardProps) {
   };
 
   return (
-    <Card className="flex h-full snap-start flex-col rounded-none">
+    <Card className="flex h-screen snap-start flex-col rounded-none">
       <CardHeader>
         <CardTitle className="text-xl"> {title} </CardTitle>
         <ul className="flex flex-wrap gap-x-2">
