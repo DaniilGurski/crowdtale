@@ -9,18 +9,19 @@ import {
 import { Badge } from "@components/ui/badge";
 import { Clock, PenIcon } from "lucide-react";
 import type { Story } from "@/types";
+import type { ComponentPropsWithRef } from "react";
 
-interface StoryCardProps {
+interface StoryCardProps extends ComponentPropsWithRef<"div"> {
   story: Story;
 }
 
-export default function StoryCard({ story }: StoryCardProps) {
-  const { title, genres, contents, creator, createdAt } = story;
+export default function StoryCard({ story, ref }: StoryCardProps) {
+  const { title, genres, contents, creator, created_at } = story;
   const introText = contents[0].text;
 
   const getDaysDiff = () => {
     const now = Date.now();
-    const createdAtDate = new Date(createdAt);
+    const createdAtDate = new Date(created_at);
 
     const diffInDays = Math.floor(
       (now - createdAtDate.getTime()) / (1000 * 60 * 60 * 24),
@@ -30,7 +31,7 @@ export default function StoryCard({ story }: StoryCardProps) {
   };
 
   return (
-    <Card className="flex h-screen snap-start flex-col rounded-none">
+    <Card className="flex h-screen snap-start flex-col rounded-none" ref={ref}>
       <CardHeader>
         <CardTitle className="text-xl"> {title} </CardTitle>
         <ul className="flex flex-wrap gap-x-2">

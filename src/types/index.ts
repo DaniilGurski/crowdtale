@@ -14,5 +14,5 @@ export interface Story {
   genres: string[];
   contents: StoryContent[];
   creator: StoryCreator;
-  createdAt: Date;
+  created_at: string;
 }
