@@ -1,4 +1,5 @@
-import { Button } from "@components/ui/button";
+import { Clock, PenIcon } from "lucide-react";
+import type { ComponentPropsWithRef } from "react";
 import {
   Card,
   CardContent,
@@ -6,35 +7,26 @@ import {
   CardHeader,
   CardTitle,
 } from "@components/ui/card";
+import { Button } from "@components/ui/button";
 import { Badge } from "@components/ui/badge";
-import { Clock, PenIcon } from "lucide-react";
-import type { Story } from "@/types";
+import { getRelativeTime } from "@lib/utils";
+import type { Story } from "@T/index";
 
-interface StoryCardProps {
+interface StoryCardProps extends ComponentPropsWithRef<"div"> {
   story: Story;
 }
 
-export default function StoryCard({ story }: StoryCardProps) {
-  const { title, genres, contents, creatorName, createdAt } = story;
+export default function StoryCard({ story, ref }: StoryCardProps) {
+  const { title, genres, contents, creator, created_at } = story;
   const introText = contents[0].text;
 
-  const getDaysDiff = () => {
-    const now = Date.now();
-
-    const diffInDays = Math.floor(
-      (now - createdAt.getTime()) / (1000 * 60 * 60 * 24),
-    );
-
-    return diffInDays;
-  };
-
   return (
-    <Card className="flex h-screen snap-start flex-col rounded-none">
+    <Card className="flex h-screen snap-start flex-col rounded-none" ref={ref}>
       <CardHeader>
         <CardTitle className="text-xl"> {title} </CardTitle>
         <ul className="flex flex-wrap gap-x-2">
           {genres.map((genre) => (
-            <li>
+            <li key={genre}>
               <Badge> {genre} </Badge>
             </li>
           ))}
@@ -48,11 +40,11 @@ export default function StoryCard({ story }: StoryCardProps) {
       <CardFooter className="grid gap-y-4">
         <div className="flex justify-between">
           <p className="flex gap-x-2">
-            <PenIcon /> <span> By: {creatorName} </span>
+            <PenIcon /> <span> By: {creator.username} </span>
           </p>
           <p className="flex gap-x-2">
             <Clock />
-            <span> {getDaysDiff()} days ago </span>
+            <span> {getRelativeTime(created_at)} </span>
           </p>
         </div>
         <Button> Join Story </Button>
