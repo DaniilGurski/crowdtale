@@ -1,3 +1,3 @@
 export const STORIES = {
-  PAGE_SIZE: 3,
+  PAGE_SIZE: 5,
 };
