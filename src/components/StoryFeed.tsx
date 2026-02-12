@@ -18,17 +18,20 @@ import { useDiscoveryFeed } from "@hooks/useDiscoveryFeed";
 import { Compass } from "lucide-react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 
-export default function DiscoverPage() {
+export default function StoryFeed() {
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
-  const { ref, inView } = useInView({ threshold: 0.2 });
+  const { ref, inView } = useInView({ threshold: 1 });
   const { data, isPending, error, fetchNextPage, isFetchingNextPage, refetch } =
     useDiscoveryFeed();
   const stories = data?.pages.flat() ?? [];
 
-  const skeletonCount = isFetchingNextPage ? 1 : 0;
+  // Show skeleton cards while fetching next page
+  const skeletonCount = isFetchingNextPage ? 3 : 0;
+  const itemCount = stories.length + skeletonCount;
+
   const virtualizer = useVirtualizer({
-    count: stories.length + skeletonCount,
+    count: itemCount,
     estimateSize: () => innerHeight,
     getScrollElement: () => scrollRef.current,
   });
@@ -61,21 +64,9 @@ export default function DiscoverPage() {
         style={{ height: `${virtualizer.getTotalSize()}px` }}
       >
         {virtualItems.map(({ index, key, start }) => {
-          const isLast = index + 1 === stories.length;
-          const story = stories[index];
+          const isLastStory = index + 1 === stories.length;
           const isSkeleton = index >= stories.length;
-
-          if (isSkeleton) {
-            return (
-              <div
-                className="absolute inset-0"
-                style={{ transform: `translateY(${start}px)` }}
-                key={key}
-              >
-                <SkeletonStoryCard />
-              </div>
-            );
-          }
+          const story = stories[index];
 
           return (
             <div
@@ -83,7 +74,11 @@ export default function DiscoverPage() {
               style={{ transform: `translateY(${start}px)` }}
               key={key}
             >
-              <StoryCard story={story} ref={isLast ? ref : undefined} />
+              {isSkeleton ? (
+                <SkeletonStoryCard />
+              ) : (
+                <StoryCard story={story} ref={isLastStory ? ref : undefined} />
+              )}
             </div>
           );
         })}
