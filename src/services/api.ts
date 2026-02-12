@@ -7,6 +7,8 @@ export const getAllStories = async ({
 }: {
   pageParam: number;
 }): Promise<Story[]> => {
+  new Promise((resolve) => setTimeout(resolve, 3000));
+
   const from = pageParam * STORIES.PAGE_SIZE;
   const to = from + STORIES.PAGE_SIZE - 1;
 
