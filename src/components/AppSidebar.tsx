@@ -60,7 +60,7 @@ function SidebarLink({ to, children }: SidebarLinkProps) {
       to={to}
       className={({ isActive }) =>
         cn(
-          "flex items-center gap-x-2 rounded-sm p-2 font-medium",
+          "flex items-center gap-x-2 rounded-lg p-2 font-medium",
           isActive && "bg-ring/10",
         )
       }
