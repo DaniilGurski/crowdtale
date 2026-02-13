@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router";
 import App from "@/App";
-import GuestRoute from "@components/GuestRoute";
-import PrivateRoute from "@components/PrivateRoute";
+import GuestRoute from "@components/guards/GuestRoute";
+import PrivateRoute from "@components/guards/PrivateRoute";
 import Login from "@pages/Login";
 import AuthCallback from "@pages/AuthCallback";
-import DiscoverPage from "./pages/DiscoverPage";
+import DiscoverPage from "@pages/DiscoverPage";
 
 export const router = createBrowserRouter([
   {
