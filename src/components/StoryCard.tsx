@@ -26,7 +26,7 @@ export default function StoryCard({ story, ref }: StoryCardProps) {
   const introText = contents[0].text;
 
   return (
-    <Card className="flex h-screen snap-start flex-col rounded-none" ref={ref}>
+    <Card className="flex h-screen snap-start flex-col rounded-3xl" ref={ref}>
       <CardHeader>
         <CardTitle className="text-xl"> {title} </CardTitle>
         <ul className="flex flex-wrap gap-x-2">
@@ -58,7 +58,6 @@ export default function StoryCard({ story, ref }: StoryCardProps) {
   );
 }
 
-// TODO: Move to seperate file
 export function SkeletonStoryCard() {
   return (
     <Card className="flex h-screen w-full snap-start flex-col rounded-none">
@@ -90,21 +89,6 @@ export function SkeletonStoryCard() {
         </div>
         <Skeleton className="h-10 w-full rounded" />
       </CardFooter>
-    </Card>
-  );
-}
-
-// TODO: Move to seperate file
-export function ErrorStoryCard({ refetch }: ErrorCardProps) {
-  return (
-    <Card className="flex h-screen w-full snap-start flex-col items-center justify-center rounded-none">
-      <CardContent className="grid gap-y-2 text-center">
-        <p className="line-clamp-4 tracking-wider italic">
-          Something went wrong !
-        </p>
-
-        <Button onClick={refetch}> Retry </Button>
-      </CardContent>
     </Card>
   );
 }

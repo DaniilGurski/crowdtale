@@ -1,3 +1,8 @@
 export const STORIES = {
   PAGE_SIZE: 5,
 };
+
+export const VIRTUALIZATION = {
+  INTERSECTION_THRESHOLD: 0.2,
+  SKELETON_COUNT_FETCHING: 1,
+};

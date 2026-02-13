@@ -2,7 +2,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { getAllStories } from "@services/api";
 import { STORIES } from "@lib/constants";
 
-export const useDiscoveryFeed = () => {
+export const useDiscoverFeed = () => {
   return useInfiniteQuery({
     queryFn: getAllStories,
     queryKey: ["stories"],
