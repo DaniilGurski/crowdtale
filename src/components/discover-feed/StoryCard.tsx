@@ -17,10 +17,6 @@ interface StoryCardProps extends ComponentPropsWithRef<"div"> {
   story: Story;
 }
 
-interface ErrorCardProps {
-  refetch: () => void;
-}
-
 export default function StoryCard({ story, ref }: StoryCardProps) {
   const { title, genres, contents, creator, created_at } = story;
   const introText = contents[0].text;

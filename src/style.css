@@ -276,7 +276,12 @@
     @apply bg-background text-foreground;
     letter-spacing: var(--tracking-normal);
   }
+}
 
-  section {
+@layer utilities {
+  .library-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: calc(var(--spacing) * 2);
   }
 }

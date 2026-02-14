@@ -5,6 +5,7 @@ import PrivateRoute from "@components/guards/PrivateRoute";
 import Login from "@pages/Login";
 import AuthCallback from "@pages/AuthCallback";
 import DiscoverPage from "@pages/DiscoverPage";
+import MyLibraryPage from "@pages/MyLibraryPage";
 
 export const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/my-library",
-        element: <p> My library Page </p>,
+        element: <MyLibraryPage />,
       },
     ],
   },
