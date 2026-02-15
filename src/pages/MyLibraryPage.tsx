@@ -1,7 +1,8 @@
 import LibraryStoryItem from "@components/my-library/LibraryStoryItem";
 import { Button } from "@components/ui/button";
-import { activeStories, completedStories } from "@/data";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs";
+import { activeStories, completedStories } from "@/data";
+import { Link } from "react-router";
 
 export default function MyLibraryPage() {
   return (
@@ -17,18 +18,21 @@ export default function MyLibraryPage() {
             <TabsTrigger value="active">Active</TabsTrigger>
             <TabsTrigger value="completed">Completed</TabsTrigger>
           </TabsList>
-          <Button> Create Story </Button>
+
+          <Button asChild>
+            <Link to="/create-story"> Create Story </Link>
+          </Button>
         </div>
 
         <TabsContent className="library-grid" value="active">
           {activeStories.map((story) => {
-            return <LibraryStoryItem story={story} />;
+            return <LibraryStoryItem key={story.id} story={story} />;
           })}
         </TabsContent>
 
         <TabsContent className="library-grid" value="completed">
           {completedStories.map((story) => {
-            return <LibraryStoryItem story={story} />;
+            return <LibraryStoryItem key={story.id} story={story} />;
           })}
         </TabsContent>
       </Tabs>

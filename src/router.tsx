@@ -2,10 +2,11 @@ import { createBrowserRouter } from "react-router";
 import App from "@/App";
 import GuestRoute from "@components/guards/GuestRoute";
 import PrivateRoute from "@components/guards/PrivateRoute";
+import AuthCallback from "@components/AuthCallback";
 import Login from "@pages/Login";
-import AuthCallback from "@pages/AuthCallback";
 import DiscoverPage from "@pages/DiscoverPage";
 import MyLibraryPage from "@pages/MyLibraryPage";
+import CreateStoryPage from "./pages/CreateStoryPage";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
       {
         path: "/my-library",
         element: <MyLibraryPage />,
+      },
+      {
+        path: "/create-story",
+        element: <CreateStoryPage />,
       },
     ],
   },
