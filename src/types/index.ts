@@ -1,18 +1,15 @@
-export interface StoryContent {
-  userId: string;
-  text: string;
-}
+import type { Tables } from "@T/database";
 
-export interface StoryCreator {
-  userId: string;
-  username: string;
-}
+export type Story = Tables<"stories">;
 
-export interface Story {
-  id: number;
+export type StoryWithGenres = Story & {
+  story_genres: { genres: { id: number; name: string } }[];
+};
+
+export type NewStory = {
   title: string;
   genres: string[];
-  contents: StoryContent[];
-  creator: StoryCreator;
-  created_at: string;
-}
+  opening_text: string;
+};
+
+export type Genre = Tables<"genres">;

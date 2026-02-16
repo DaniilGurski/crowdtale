@@ -6,9 +6,8 @@ import { useDiscoverFeedVirtualizer } from "@hooks/useDiscoverFeedVirtualizer";
 import DiscoverFeedEmpty from "@components/discover-feed/DiscoverFeedEmpty";
 import DiscoverFeedLoading from "@components/discover-feed/DiscoverFeedLoading";
 import DiscoverFeedError from "@components/discover-feed/DiscoverFeedError";
-import StoryCard, {
-  SkeletonStoryCard,
-} from "@components/discover-feed/StoryCard";
+import StoryCard from "@components/discover-feed/StoryCard";
+import StoryCardSkeleton from "@components/skeletons/StoryCardSkeleton";
 
 export default function DiscoverPage() {
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -56,7 +55,7 @@ export default function DiscoverPage() {
                 style={{ transform: `translateY(${start}px)` }}
                 key={key}
               >
-                <SkeletonStoryCard />
+                <StoryCardSkeleton />
               </div>
             );
           }
