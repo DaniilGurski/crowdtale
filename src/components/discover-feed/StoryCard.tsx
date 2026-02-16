@@ -19,7 +19,7 @@ interface StoryCardProps extends ComponentPropsWithRef<"div"> {
 
 export default function StoryCard({ story, ref }: StoryCardProps) {
   const { title, genres, contents, creator, created_at } = story;
-  const introText = contents[0].text;
+  const openingText = contents[0].text;
 
   return (
     <Card className="flex h-screen snap-start flex-col rounded-3xl" ref={ref}>
@@ -35,13 +35,13 @@ export default function StoryCard({ story, ref }: StoryCardProps) {
       </CardHeader>
 
       <CardContent className="flex-1">
-        <p className="line-clamp-4 tracking-wider italic">"{introText}"</p>
+        <p className="line-clamp-4 tracking-wider italic">"{openingText}"</p>
       </CardContent>
 
       <CardFooter className="grid gap-y-4">
         <div className="flex justify-between">
           <p className="flex gap-x-2">
-            <PenIcon /> <span> By: {creator.username} </span>
+            <PenIcon /> <span> By: {creator.userId} </span>
           </p>
           <p className="flex gap-x-2">
             <Clock />

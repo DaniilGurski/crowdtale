@@ -20,13 +20,14 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "../ui/input-group";
+import { addNewStory } from "@/services/api";
 
 const schema = z.object({
   title: z.string().nonempty({ error: "Story title can not be empty" }),
   genres: z.array(z.string()).min(1, { error: "Select at least one genre" }),
   openingText: z
     .string()
-    .min(50, { error: "Opening text should be at least 50 characters long" }),
+    .min(20, { error: "Opening text should be at least 50 characters long" }),
 });
 
 type CreateStoryFormFields = z.infer<typeof schema>;
@@ -35,14 +36,23 @@ export default function CreateStoryForm() {
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      title: "",
-      genres: [],
-      openingText: "",
+      title: "Hello World",
+      genres: ["Romance"],
+      openingText: "foekwfepwkfoekfpwekfpkefpsefkowkpewfkwewpfewofpkwe",
     },
   });
 
-  const onSubmit: SubmitHandler<CreateStoryFormFields> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<CreateStoryFormFields> = async ({
+    title,
+    genres,
+    openingText,
+  }) => {
+    // TODO: Add a toaster for both cases
+    try {
+      await addNewStory(title, genres, openingText);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

@@ -8,6 +8,7 @@ import {
 } from "@components/ui/empty";
 import { Compass } from "lucide-react";
 import { Button } from "@components/ui/button";
+import { Link } from "react-router";
 
 export default function DiscoverFeedEmpty() {
   return (
@@ -24,7 +25,9 @@ export default function DiscoverFeedEmpty() {
         </EmptyDescription>
       </EmptyHeader>
       <EmptyContent>
-        <Button> Create story </Button>
+        <Button asChild>
+          <Link to="/create-story"> Create Story </Link>
+        </Button>
       </EmptyContent>
     </Empty>
   );
