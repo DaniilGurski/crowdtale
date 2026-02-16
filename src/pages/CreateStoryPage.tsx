@@ -7,7 +7,3 @@ export default function CreateStoryPage() {
     </div>
   );
 }
-
-// TODO: 1. Add breadcrumps, navigation header component
-// TODO: 2. Implement onSubmit for create story form
-// TODO: 3. Change Story object to fit into the form
