@@ -20,3 +20,22 @@ export const getAllStories = async ({
   if (error) throw error;
   return data;
 };
+
+export const addNewStory = async (
+  title: string,
+  genres: string[],
+  openingText: string,
+) => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) throw new Error("Unauthorized");
+
+  await supabase.from("stories").insert({
+    title,
+    genres,
+    contents: [{ userId: user.id, text: openingText }],
+    creator: { userId: user.id, username: "undefined" },
+  });
+};

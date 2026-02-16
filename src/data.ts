@@ -82,3 +82,11 @@ export const completedStories = [
     created_at: "2025-04-05",
   },
 ];
+export const GENRES = [
+  "Fantasy",
+  "Sci-Fi",
+  "Romance",
+  "Mystery",
+  "Horror",
+  "Adventure",
+];

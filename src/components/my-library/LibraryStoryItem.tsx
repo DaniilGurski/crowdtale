@@ -27,7 +27,7 @@ export default function LibraryStoryItem({ story }: LibraryStoryItemProps) {
       <CardFooter className="mt-auto grid gap-y-4 text-sm">
         <div className="grid gap-y-2">
           <p className="flex gap-x-2">
-            <PenIcon /> <span>By: {creator.username} </span>
+            <PenIcon /> <span>By: {creator.userId} </span>
           </p>
           <p className="flex gap-x-2">
             <Clock />

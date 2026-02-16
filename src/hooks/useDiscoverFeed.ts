@@ -7,7 +7,7 @@ export const useDiscoverFeed = () => {
     queryFn: getAllStories,
     queryKey: ["stories"],
 
-    staleTime: 1000 * 60 * 5,
+    staleTime: 0,
     initialPageParam: 0,
 
     getNextPageParam: (lastPage, allPages) => {

@@ -11,6 +11,7 @@ import { Compass, PencilLine, SquareLibrary } from "lucide-react";
 import { NavLink } from "react-router";
 import { cn } from "@lib/utils";
 import type { PropsWithChildren } from "react";
+import Logo from "./Logo";
 
 interface SidebarLinkProps extends PropsWithChildren {
   to: string;
@@ -23,10 +24,7 @@ export default function AppSidebar() {
       collapsible="none"
     >
       <SidebarHeader>
-        <h1 className="flex items-center justify-center gap-x-2 text-xl sm:justify-start">
-          <PencilLine />
-          <span className="hidden font-bold sm:inline"> Collab Write </span>
-        </h1>
+        <Logo />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
