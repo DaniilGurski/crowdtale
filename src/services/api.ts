@@ -1,4 +1,9 @@
-import type { Genre, NewStory, StoryWithGenres } from "@T/index";
+import type {
+  Genre,
+  NewStory,
+  StoryWithGenres,
+  StoryWithParticipants,
+} from "@T/index";
 import { STORIES } from "@lib/constants";
 import { supabase } from "@lib/supabase/client";
 
@@ -23,12 +28,34 @@ export const getAllStories = async ({
     .range(from, to);
 
   if (error) throw error;
+  return data;
+};
+
+export const getUserStories = async (): Promise<StoryWithParticipants[]> => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) throw new Error("Unauthorized");
+
+  const { data, error } = await supabase
+    .from("stories")
+    .select(
+      `id, title, opening_text, status, created_at, creator_id, story_genres (
+        genres (
+          id,
+          name
+        )
+      ), story_participants!inner ( user_id, profiles (username) )`,
+    )
+    .eq("story_participants.user_id", user.id);
+
+  if (error) throw error;
 
   return data;
 };
 
 export const getAllGenres = async (): Promise<Genre[]> => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
   const { data, error } = await supabase.from("genres").select("*");
 
   if (error) throw error;
@@ -37,6 +64,7 @@ export const getAllGenres = async (): Promise<Genre[]> => {
 };
 
 export const addNewStory = async (newStory: NewStory) => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   const {
     data: { user },
   } = await supabase.auth.getUser();

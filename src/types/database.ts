@@ -112,6 +112,39 @@ export type Database = {
           },
         ]
       }
+      story_participants: {
+        Row: {
+          joined_at: string | null
+          story_id: string
+          user_id: string
+        }
+        Insert: {
+          joined_at?: string | null
+          story_id: string
+          user_id: string
+        }
+        Update: {
+          joined_at?: string | null
+          story_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "story_participants_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "stories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "story_participants_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       turns: {
         Row: {
           content: string

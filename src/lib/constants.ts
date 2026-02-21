@@ -4,7 +4,7 @@ export const STORIES = {
 
 export const STORY_STATUS = {
   ACTIVE: "active",
-  FINISHED: "finished",
+  COMPLETED: "completed",
 };
 
 export const VIRTUALIZATION = {

@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import { SidebarProvider } from "@components/ui/sidebar";
 import AppSidebar from "@components/AppSidebar";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
   return (
@@ -9,6 +10,7 @@ export default function App() {
       <main className="relative w-full">
         <Outlet />
       </main>
+      <Toaster toastOptions={{}} />
     </SidebarProvider>
   );
 }

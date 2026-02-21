@@ -21,6 +21,8 @@ import {
 } from "../ui/input-group";
 import { addNewStory, getAllGenres } from "@/services/api";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
 
 const schema = z.object({
   title: z.string().nonempty({ error: "Story title can not be empty" }),
@@ -43,6 +45,8 @@ export default function CreateStoryForm() {
     },
   });
 
+  const navigate = useNavigate();
+
   const { data: genres } = useSuspenseQuery({
     queryFn: getAllGenres,
     queryKey: ["genres"],
@@ -55,7 +59,27 @@ export default function CreateStoryForm() {
   }) => {
     // TODO: Add a toaster for both cases
     try {
-      await addNewStory({ title, genres, opening_text: openingText });
+      const postStory = addNewStory({
+        title,
+        genres,
+        opening_text: openingText,
+      });
+
+      toast.promise(
+        postStory,
+        {
+          loading: "Creating...",
+          success: "New story created !",
+          error: (err: Error) => err.message,
+        },
+        {
+          style: {
+            minWidth: "15rem",
+          },
+        },
+      );
+
+      navigate("/my-library");
     } catch (err) {
       console.log(err);
     }
