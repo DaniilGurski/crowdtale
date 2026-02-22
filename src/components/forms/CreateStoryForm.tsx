@@ -8,19 +8,21 @@ import {
   CardTitle,
   CardFooter,
   CardContent,
-} from "@/components/ui/card";
+} from "@components/ui/card";
 import { Field, FieldError, FieldLabel } from "@components/ui/field";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { ToggleGroup, ToggleGroupItem } from "@components/ui/toggle-group";
-import { GENRES } from "@/data";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupText,
   InputGroupTextarea,
-} from "../ui/input-group";
-import { addNewStory } from "@/services/api";
+} from "@components/ui/input-group";
+import { addNewStory, getAllGenres } from "@services/api";
+import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
 
 const schema = z.object({
   title: z.string().nonempty({ error: "Story title can not be empty" }),
@@ -36,23 +38,48 @@ export default function CreateStoryForm() {
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      title: "Hello World",
-      genres: ["Romance"],
-      openingText: "foekwfepwkfoekfpwekfpkefpsefkowkpewfkwewpfewofpkwe",
+      title: "Lorem",
+      genres: ["1"],
+      openingText:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur molestie erat dolor, sed condimentum dolor porta vel.",
     },
   });
+
+  const { data: genres } = useSuspenseQuery({
+    queryFn: getAllGenres,
+    queryKey: ["genres"],
+  });
+
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<CreateStoryFormFields> = async ({
     title,
     genres,
     openingText,
   }) => {
-    // TODO: Add a toaster for both cases
-    try {
-      await addNewStory(title, genres, openingText);
-    } catch (err) {
-      console.log(err);
-    }
+    const postStory = addNewStory({
+      title,
+      genres,
+      opening_text: openingText,
+    });
+
+    await toast.promise(
+      postStory,
+      {
+        loading: "Creating...",
+        success: "New story created !",
+        error: (err: Error) => err.message,
+      },
+      {
+        style: {
+          minWidth: "15rem",
+        },
+      },
+    );
+
+    await queryClient.invalidateQueries({ queryKey: ["library"] });
+    navigate("/my-library");
   };
 
   return (
@@ -103,13 +130,13 @@ export default function CreateStoryForm() {
                   onValueChange={field.onChange}
                   spacing={2}
                 >
-                  {GENRES.map((genre) => (
+                  {genres.map((genre) => (
                     <ToggleGroupItem
-                      key={genre}
-                      value={genre}
+                      key={genre.id}
+                      value={genre.id.toString()}
                       className="cursor-pointer rounded-full px-3"
                     >
-                      {genre}
+                      {genre.name}
                     </ToggleGroupItem>
                   ))}
 

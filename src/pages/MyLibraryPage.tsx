@@ -1,7 +1,7 @@
-import LibraryStoryItem from "@components/my-library/LibraryStoryItem";
+import LibraryList from "@components/my-library/LibraryList";
 import { Button } from "@components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs";
-import { activeStories, completedStories } from "@/data";
+import { Tabs, TabsList, TabsTrigger } from "@components/ui/tabs";
+
 import { Link } from "react-router";
 
 export default function MyLibraryPage() {
@@ -9,7 +9,7 @@ export default function MyLibraryPage() {
     <div className="mx-auto grid w-[90%] gap-y-4 p-8">
       <div>
         <h2 className="text-2xl font-bold">My Library</h2>
-        <p>Your stories, active and finished</p>
+        <p>Your stories, active and completed</p>
       </div>
 
       <Tabs defaultValue="active">
@@ -24,17 +24,7 @@ export default function MyLibraryPage() {
           </Button>
         </div>
 
-        <TabsContent className="library-grid" value="active">
-          {activeStories.map((story) => {
-            return <LibraryStoryItem key={story.id} story={story} />;
-          })}
-        </TabsContent>
-
-        <TabsContent className="library-grid" value="completed">
-          {completedStories.map((story) => {
-            return <LibraryStoryItem key={story.id} story={story} />;
-          })}
-        </TabsContent>
+        <LibraryList />
       </Tabs>
     </div>
   );
