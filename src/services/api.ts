@@ -31,7 +31,7 @@ export const getAllStories = async ({
   return data;
 };
 
-export const getUserStories = async (): Promise<StoryWithParticipants[]> => {
+export const getUserLibrary = async (): Promise<StoryWithParticipants[]> => {
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -64,7 +64,6 @@ export const getAllGenres = async (): Promise<Genre[]> => {
 };
 
 export const addNewStory = async (newStory: NewStory) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
   const {
     data: { user },
   } = await supabase.auth.getUser();

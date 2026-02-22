@@ -10,7 +10,13 @@ export default function App() {
       <main className="relative w-full">
         <Outlet />
       </main>
-      <Toaster toastOptions={{}} />
+      <Toaster
+        toastOptions={{
+          style: {
+            background: "var(--card)",
+          },
+        }}
+      />
     </SidebarProvider>
   );
 }

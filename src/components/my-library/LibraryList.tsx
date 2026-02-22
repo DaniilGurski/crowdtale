@@ -1,18 +1,10 @@
-import { TabsContent } from "@components/ui/tabs";
 import LibraryStoryItem from "@components/my-library/LibraryStoryItem";
 import LibraryListSkeleton from "@components/skeletons/LibraryListSkeleton";
-import { useQuery } from "@tanstack/react-query";
-import { getUserStories } from "@/services/api";
+import { TabsContent } from "@components/ui/tabs";
+import { useLibrary } from "@hooks/useLibrary";
 
 export default function LibraryList() {
-  const {
-    data: stories,
-    isPending,
-    error,
-  } = useQuery({
-    queryFn: getUserStories,
-    queryKey: ["library"],
-  });
+  const { data: stories, isPending, error } = useLibrary();
 
   const activeStories = stories?.filter((story) => story.status === "active");
   const completedStories = stories?.filter(

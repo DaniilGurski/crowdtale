@@ -8,7 +8,7 @@ import {
   CardTitle,
   CardFooter,
   CardContent,
-} from "@/components/ui/card";
+} from "@components/ui/card";
 import { Field, FieldError, FieldLabel } from "@components/ui/field";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
@@ -18,9 +18,9 @@ import {
   InputGroupAddon,
   InputGroupText,
   InputGroupTextarea,
-} from "../ui/input-group";
-import { addNewStory, getAllGenres } from "@/services/api";
-import { useSuspenseQuery } from "@tanstack/react-query";
+} from "@components/ui/input-group";
+import { addNewStory, getAllGenres } from "@services/api";
+import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
 
@@ -41,48 +41,45 @@ export default function CreateStoryForm() {
       title: "Lorem",
       genres: ["1"],
       openingText:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur molestie erat dolor, sed condimentum dolor porta vel. ",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur molestie erat dolor, sed condimentum dolor porta vel.",
     },
   });
-
-  const navigate = useNavigate();
 
   const { data: genres } = useSuspenseQuery({
     queryFn: getAllGenres,
     queryKey: ["genres"],
   });
 
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
   const onSubmit: SubmitHandler<CreateStoryFormFields> = async ({
     title,
     genres,
     openingText,
   }) => {
-    // TODO: Add a toaster for both cases
-    try {
-      const postStory = addNewStory({
-        title,
-        genres,
-        opening_text: openingText,
-      });
+    const postStory = addNewStory({
+      title,
+      genres,
+      opening_text: openingText,
+    });
 
-      toast.promise(
-        postStory,
-        {
-          loading: "Creating...",
-          success: "New story created !",
-          error: (err: Error) => err.message,
+    await toast.promise(
+      postStory,
+      {
+        loading: "Creating...",
+        success: "New story created !",
+        error: (err: Error) => err.message,
+      },
+      {
+        style: {
+          minWidth: "15rem",
         },
-        {
-          style: {
-            minWidth: "15rem",
-          },
-        },
-      );
+      },
+    );
 
-      navigate("/my-library");
-    } catch (err) {
-      console.log(err);
-    }
+    await queryClient.invalidateQueries({ queryKey: ["library"] });
+    navigate("/my-library");
   };
 
   return (
