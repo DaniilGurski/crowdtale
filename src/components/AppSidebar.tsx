@@ -7,7 +7,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@components/ui/sidebar";
-import { Compass, PencilLine, SquareLibrary } from "lucide-react";
+import { Compass, SquareLibrary } from "lucide-react";
 import { NavLink } from "react-router";
 import { cn } from "@lib/utils";
 import type { PropsWithChildren } from "react";
@@ -19,10 +19,7 @@ interface SidebarLinkProps extends PropsWithChildren {
 
 export default function AppSidebar() {
   return (
-    <Sidebar
-      className="h-screen w-min rounded-tr-3xl rounded-br-3xl shadow-sm sm:w-xs"
-      collapsible="none"
-    >
+    <Sidebar className="">
       <SidebarHeader>
         <Logo />
       </SidebarHeader>
@@ -33,7 +30,7 @@ export default function AppSidebar() {
               <SidebarMenuButton asChild>
                 <SidebarLink to="/">
                   <Compass />
-                  <span className="hidden sm:inline"> Discover </span>
+                  <span> Discover </span>
                 </SidebarLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -41,7 +38,7 @@ export default function AppSidebar() {
               <SidebarMenuButton asChild>
                 <SidebarLink to="/my-library">
                   <SquareLibrary />
-                  <span className="hidden sm:inline"> My library </span>
+                  <span> My library </span>
                 </SidebarLink>
               </SidebarMenuButton>
             </SidebarMenuItem>

@@ -23,6 +23,7 @@ export default function LibraryList() {
     return null;
   }
 
+  /* TODO: Add empty state */
   return (
     <>
       <TabsContent className="library-grid" value="active">

@@ -5,9 +5,9 @@ import { Link } from "react-router";
 export default function Logo() {
   return (
     <Link to="/">
-      <h1 className="flex items-center justify-center gap-x-2 text-xl sm:justify-start">
+      <h1 className="flex items-center justify-start gap-x-2 text-xl">
         <PencilLine color="var(--primary)" />
-        <span className="hidden font-bold sm:inline"> Collab Write </span>
+        <span className="font-bold"> Collab Write </span>
       </h1>
     </Link>
   );
