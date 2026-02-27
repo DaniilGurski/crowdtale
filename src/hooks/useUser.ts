@@ -4,19 +4,19 @@ import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 
 export const useUser = () => {
-    const [user, setUser] = useAtom(userAtom);
-    const [loading, setLoading] = useState(true);
+  const [user, setUser] = useAtom(userAtom);
+  const [isLoading, setIsLoading] = useState(true);
 
-    const getUser = async () => {
-        const { data } = await supabase.auth.getUser();
+  const getUser = async () => {
+    const { data } = await supabase.auth.getUser();
 
-        setUser(data.user);
-        setLoading(false);
-    };
+    setUser(data.user);
+    setIsLoading(false);
+  };
 
-    useEffect(() => {
-        getUser();
-    }, []);
+  useEffect(() => {
+    getUser();
+  }, []);
 
-    return [user, loading];
+  return { user, isLoading };
 };

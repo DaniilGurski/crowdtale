@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router";
 import App from "@/App";
 import GuestRoute from "@components/guards/GuestRoute";
 import PrivateRoute from "@components/guards/PrivateRoute";
+import StoryGuard from "@components/guards/StoryGuard";
 import AuthCallback from "@components/AuthCallback";
 import Login from "@pages/Login";
 import DiscoverPage from "@pages/DiscoverPage";

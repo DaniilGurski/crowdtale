@@ -5,15 +5,15 @@ import { type PropsWithChildren } from "react";
 interface GuestRouteProps extends PropsWithChildren {}
 
 export default function GuestRoute({ children }: GuestRouteProps) {
-    const [user, loading] = useUser();
+  const { user, isLoading } = useUser();
 
-    if (user !== null) {
-        return <Navigate to="/" replace />;
-    }
+  if (user !== null) {
+    return <Navigate to="/" replace />;
+  }
 
-    if (loading) {
-        return null;
-    }
+  if (isLoading) {
+    return null;
+  }
 
-    return children;
+  return children;
 }

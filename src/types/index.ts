@@ -5,8 +5,10 @@ export type Genre = Tables<"genres">;
 export type StoryGenre = Tables<"story_genres">;
 
 export type StoryWithGenres = Story & {
-  story_genres: { genres: { id: number; name: string } }[];
+  story_genres: { genres: { genre_id: number; name: string } }[];
 };
+
+export type StoryStatus = "waiting" | "active" | "completed";
 
 export type StoryWithParticipants = Story & {
   story_participants: {
@@ -24,12 +26,12 @@ export type NewStory = {
 export type Turn = Tables<"turns">;
 
 export type TurnWithProfiles = Turn & {
-  profiles: { id: string; username: string } | null;
+  profiles: { id: string; username: string };
 };
 
 export type TurnWithStoryInfo = Turn & {
-  stories: {
-    title: string;
-    story_genres: { genres: { id: number; name: string } }[];
-  } | null;
+  stories: Pick<
+    StoryWithGenres,
+    "title" | "opening_text" | "status" | "story_genres"
+  >;
 };

@@ -61,17 +61,38 @@ export const getUserLibrary = async (): Promise<
 
 export const getTurnsByStoryId = async (
   story_id: string,
-): Promise<TurnWithProfiles & TurnWithStoryInfo> => {
+): Promise<(TurnWithProfiles & TurnWithStoryInfo)[]> => {
   const { data, error } = await supabase
     .from("turns")
     .select(
-      `id, story_id, user_id, content, turn_order, created_at, profiles (id, username), stories (title, story_genres(genres(id, name)))`,
+      `id, story_id, user_id, content, turn_order, created_at, profiles (id, username), stories (title, opening_text, status, story_genres(genres(id, name)))`,
     )
     .eq("story_id", story_id)
-    .single();
+    .overrideTypes<(TurnWithProfiles & TurnWithStoryInfo)[]>();
 
   if (error) throw error;
+
   return data;
+};
+
+export const isStoryParticipant = async (
+  storyId: string,
+  userId: string,
+): Promise<boolean> => {
+  const { data, error } = await supabase
+    .from("story_participants")
+    .select()
+    .eq("story_id", storyId)
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  if (error) {
+    throw error;
+  }
+
+  console.log(storyId, userId, data);
+
+  return !!data;
 };
 
 export const getAllGenres = async (): Promise<Genre[]> => {

@@ -6,7 +6,9 @@ import { useLibrary } from "@hooks/useLibrary";
 export default function LibraryList() {
   const { data: stories, isPending, error } = useLibrary();
 
-  const activeStories = stories?.filter((story) => story.status === "active");
+  const activeStories = stories?.filter(
+    (story) => story.status === "waiting" || story.status === "active",
+  );
   const completedStories = stories?.filter(
     (story) => story.status === "completed",
   );
