@@ -16,7 +16,7 @@ export const useUser = () => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [getUser]);
 
   return { user, isLoading };
 };

@@ -2,9 +2,7 @@ import { useUser } from "@hooks/useUser";
 import { Navigate } from "react-router";
 import { type PropsWithChildren } from "react";
 
-interface GuestRouteProps extends PropsWithChildren {}
-
-export default function GuestRoute({ children }: GuestRouteProps) {
+export default function GuestRoute({ children }: PropsWithChildren) {
   const { user, isLoading } = useUser();
 
   if (user !== null) {

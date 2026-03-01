@@ -5,7 +5,6 @@ import { useUser } from "@hooks/useUser";
 import { useParams } from "react-router";
 import { useTurnsById } from "@/hooks/useTurnsById";
 import NavigationHeader from "@/components/writing-space/NavigationHeader";
-import StoryGuard from "@/components/guards/StoryGuard";
 
 // Page where users can view, join, and contribute to the story they are part of
 export default function WritingSpacePage() {
