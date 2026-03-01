@@ -1,12 +1,8 @@
-import { ChevronLeft } from "lucide-react";
-import { Button } from "@components/ui/button";
-import { Badge } from "@components/ui/badge";
 import { Spinner } from "@components/ui/spinner";
-import GenreList from "@components/GenreList";
 import { WritingSpaceAction } from "@components/writing-space/WritingSpaceAction";
 import { TurnBlock } from "@components/writing-space/TurnBlock";
 import { useUser } from "@hooks/useUser";
-import { useLocation, useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import { useTurnsById } from "@/hooks/useTurnsById";
 import NavigationHeader from "@/components/writing-space/NavigationHeader";
 import StoryGuard from "@/components/guards/StoryGuard";
@@ -29,9 +25,8 @@ export default function WritingSpacePage() {
     return null;
   }
 
-  /* TODO: Fix overflow issues on mobile */
   return (
-    <section className="h-full flex-1">
+    <section className="h-full flex-1 overflow-y-scroll">
       <NavigationHeader
         storyTitle={storyInfo.title}
         storyGenres={storyInfo.story_genres}

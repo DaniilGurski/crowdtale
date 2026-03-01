@@ -5,6 +5,7 @@ export const useTurnsById = (storyId?: string) => {
   const query = useQuery({
     queryFn: () => getTurnsByStoryId(storyId!),
     queryKey: ["turns", storyId],
+    staleTime: 0,
     enabled: !!storyId,
   });
 

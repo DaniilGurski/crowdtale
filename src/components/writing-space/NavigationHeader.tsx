@@ -4,10 +4,11 @@ import GenreList from "@components/GenreList";
 import { useLocation, useNavigate } from "react-router";
 import { ChevronLeft } from "lucide-react";
 import type { StoryStatus } from "@T/index";
+import { capitalize } from "@/lib/utils";
 
 interface NavigationHeaderProps {
   storyTitle: string;
-  storyGenres: { genres: { genre_id: number; name: string } }[];
+  storyGenres: { genres: { id: number; name: string } }[];
   storyStatus: StoryStatus;
 }
 
@@ -33,7 +34,7 @@ export default function NavigationHeader({
         </div>
       </div>
 
-      <Badge variant="secondary"> {storyStatus} </Badge>
+      <Badge variant="secondary"> {capitalize(storyStatus)} </Badge>
     </header>
   );
 }

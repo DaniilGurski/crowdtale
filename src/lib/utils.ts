@@ -21,3 +21,10 @@ export const getRelativeTime = (dateString: string | null) => {
 
   return `${Math.floor(diffInDays / 7)} weeks ago`;
 };
+
+export const capitalize = (str: string) => {
+  return str
+    .split(" ")
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ");
+};

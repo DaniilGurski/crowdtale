@@ -90,8 +90,6 @@ export const isStoryParticipant = async (
     throw error;
   }
 
-  console.log(storyId, userId, data);
-
   return !!data;
 };
 
@@ -115,6 +113,22 @@ export const addNewStory = async (newStory: NewStory) => {
     p_opening_text: newStory.opening_text,
     p_creator_id: user.id,
     p_genre_ids: newStory.genres.map((id) => parseInt(id)),
+  });
+
+  if (error) throw error;
+};
+
+export const joinStory = async (storyId: string) => {
+  console.log("join story");
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) throw new Error("Unauthorized");
+
+  const { error } = await supabase.rpc("join_story", {
+    p_story_id: storyId,
+    p_user_id: user.id,
   });
 
   if (error) throw error;

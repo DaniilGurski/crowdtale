@@ -2,6 +2,8 @@ import type { StoryStatus } from "@T/index";
 import { useIsParticipant } from "@hooks/useIsParticipant";
 import { Button } from "@components/ui/button";
 import WritingForm from "./WritingForm";
+import { joinStory } from "@/services/api";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface WritingSpaceActionProps {
   storyId?: string;
@@ -15,6 +17,17 @@ export function WritingSpaceAction({
   status,
 }: WritingSpaceActionProps) {
   const { data: isParticipant } = useIsParticipant(storyId, userId);
+  const client = useQueryClient();
+
+  const handleJoin = async () => {
+    if (!storyId) return;
+
+    await joinStory(storyId);
+    await client.invalidateQueries({ queryKey: ["turns", storyId] });
+    await client.invalidateQueries({
+      queryKey: ["is_participant", storyId, userId],
+    });
+  };
 
   if (status === "waiting" && isParticipant) {
     return (
@@ -27,6 +40,6 @@ export function WritingSpaceAction({
     return <WritingForm />;
   }
   if (status === "waiting" && !isParticipant) {
-    return <Button> Join </Button>;
+    return <Button onClick={handleJoin}>Join</Button>;
   }
 }

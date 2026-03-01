@@ -5,7 +5,7 @@ export type Genre = Tables<"genres">;
 export type StoryGenre = Tables<"story_genres">;
 
 export type StoryWithGenres = Story & {
-  story_genres: { genres: { genre_id: number; name: string } }[];
+  story_genres: { genres: { id: number; name: string } }[];
 };
 
 export type StoryStatus = "waiting" | "active" | "completed";
