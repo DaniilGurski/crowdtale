@@ -7,9 +7,9 @@ import type { StoryStatus } from "@T/index";
 import { capitalize } from "@/lib/utils";
 
 interface NavigationHeaderProps {
-  storyTitle: string;
-  storyGenres: { genres: { id: number; name: string } }[];
-  storyStatus: StoryStatus;
+  storyTitle?: string;
+  storyGenres?: { genres: { id: number; name: string } }[];
+  storyStatus?: StoryStatus;
 }
 
 export default function NavigationHeader({
@@ -34,7 +34,9 @@ export default function NavigationHeader({
         </div>
       </div>
 
-      <Badge variant="secondary"> {capitalize(storyStatus)} </Badge>
+      {storyStatus && (
+        <Badge variant="secondary">{capitalize(storyStatus)}</Badge>
+      )}
     </header>
   );
 }

@@ -22,7 +22,14 @@ export default function WritingSpacePage() {
   }
 
   if (!turns?.length || !storyInfo) {
-    return null;
+    return (
+      <section className="h-full flex-1 overflow-y-scroll">
+        <NavigationHeader />
+        <p className="grid w-full place-items-center">
+          You don't have permission to view this story !
+        </p>
+      </section>
+    );
   }
 
   return (
@@ -32,31 +39,30 @@ export default function WritingSpacePage() {
         storyGenres={storyInfo.story_genres}
         storyStatus={storyInfo.status}
       />
-      <StoryGuard>
-        <div className="flex h-full flex-col">
-          <div className="mx-auto grid w-[90%] max-w-2xl flex-1 content-start gap-y-4">
-            {turns.map(({ content, profiles }, index) => {
-              if (index <= 0) {
-                return (
-                  <TurnBlock
-                    key={index}
-                    text={content}
-                    author={profiles.username}
-                    isOpening
-                  />
-                );
-              }
-              return <TurnBlock text={content} author={profiles.username} />;
-            })}
-          </div>
 
-          <WritingSpaceAction
-            storyId={storyId}
-            userId={user!.id}
-            status={storyInfo.status}
-          />
+      <div className="flex h-full flex-col">
+        <div className="mx-auto grid w-[90%] max-w-2xl flex-1 content-start gap-y-4">
+          {turns.map(({ content, profiles }, index) => {
+            if (index <= 0) {
+              return (
+                <TurnBlock
+                  key={index}
+                  text={content}
+                  author={profiles.username}
+                  isOpening
+                />
+              );
+            }
+            return <TurnBlock text={content} author={profiles.username} />;
+          })}
         </div>
-      </StoryGuard>
+
+        <WritingSpaceAction
+          storyId={storyId}
+          userId={user!.id}
+          status={storyInfo.status}
+        />
+      </div>
     </section>
   );
 }

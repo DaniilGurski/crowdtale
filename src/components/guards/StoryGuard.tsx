@@ -22,11 +22,7 @@ export default function StoryGuard({ children }: PropsWithChildren) {
   }
 
   if (storyInfo?.status === "active" && !isParticipant) {
-    return (
-      <p className="grid w-full place-items-center">
-        You don't have permission to view this story!
-      </p>
-    );
+    return <p>You don't have permission to view this story!</p>;
   }
 
   return children;

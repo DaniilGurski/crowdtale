@@ -72,6 +72,7 @@ export const getTurnsByStoryId = async (
 
   if (error) throw error;
 
+  console.log(data);
   return data;
 };
 
@@ -119,7 +120,6 @@ export const addNewStory = async (newStory: NewStory) => {
 };
 
 export const joinStory = async (storyId: string) => {
-  console.log("join story");
   const {
     data: { user },
   } = await supabase.auth.getUser();
