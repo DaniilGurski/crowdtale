@@ -5,7 +5,7 @@ import { Link } from "react-router";
 
 export default function MyLibraryPage() {
   return (
-    <div className="mx-auto flex w-[90%] flex-col gap-y-4 p-8">
+    <div className="mx-auto flex w-[95%] flex-col gap-y-4 p-6 sm:p-8">
       <div>
         <h2 className="text-2xl font-bold">My Library</h2>
         <p>Your stories, active and completed</p>

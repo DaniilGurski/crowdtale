@@ -281,7 +281,11 @@
 @layer utilities {
   .library-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: calc(var(--spacing) * 2);
+  }
+  .writing-form-grid {
+    display: grid;
+    grid-template-rows: 120px 1fr;
   }
 }

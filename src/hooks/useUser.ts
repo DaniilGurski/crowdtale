@@ -1,22 +1,13 @@
-import { userAtom } from "@lib/atoms";
 import { supabase } from "@lib/supabase/client";
-import { useAtom } from "jotai";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 export const useUser = () => {
-  const [user, setUser] = useAtom(userAtom);
-  const [isLoading, setIsLoading] = useState(true);
+  const query = useQuery({
+    queryFn: async () => {
+      return await supabase.auth.getUser();
+    },
+    queryKey: ["user"],
+  });
 
-  const getUser = async () => {
-    const { data } = await supabase.auth.getUser();
-
-    setUser(data.user);
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    getUser();
-  }, [getUser]);
-
-  return { user, isLoading };
+  return { user: query.data?.data.user, ...query };
 };

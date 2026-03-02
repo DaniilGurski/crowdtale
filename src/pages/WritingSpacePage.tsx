@@ -58,7 +58,7 @@ export default function WritingSpacePage() {
 
         <WritingSpaceAction
           storyId={storyId}
-          userId={user!.id}
+          userId={user?.id}
           status={storyInfo.status}
         />
       </div>
