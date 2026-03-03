@@ -52,7 +52,7 @@ export type Database = {
           created_at: string | null
           creator_id: string
           id: string
-          is_full: boolean | null
+          is_full: boolean
           opening_text: string
           status: Database["public"]["Enums"]["story_status"]
           title: string
@@ -61,16 +61,16 @@ export type Database = {
           created_at?: string | null
           creator_id: string
           id?: string
-          is_full?: boolean | null
+          is_full?: boolean
           opening_text?: string
-          status?: Database["public"]["Enums"]["story_status"]
+          status: Database["public"]["Enums"]["story_status"]
           title: string
         }
         Update: {
           created_at?: string | null
           creator_id?: string
           id?: string
-          is_full?: boolean | null
+          is_full?: boolean
           opening_text?: string
           status?: Database["public"]["Enums"]["story_status"]
           title?: string

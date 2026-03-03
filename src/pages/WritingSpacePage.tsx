@@ -56,11 +56,7 @@ export default function WritingSpacePage() {
           })}
         </div>
 
-        <WritingSpaceAction
-          storyId={storyId}
-          userId={user?.id}
-          status={storyInfo.status}
-        />
+        <WritingSpaceAction userId={user?.id} status={storyInfo.status} />
       </div>
     </section>
   );

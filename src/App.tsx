@@ -8,7 +8,7 @@ export default function App() {
     <SidebarProvider>
       <AppSidebar />
       <main className="relative flex w-full">
-        <SidebarTrigger className="bg-sidebar h-full md:hidden" />
+        <SidebarTrigger className="bg-sidebar h-full shadow-lg shadow-amber-950 md:hidden" />
         <Outlet />
       </main>
       <Toaster

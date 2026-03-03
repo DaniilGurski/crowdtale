@@ -35,7 +35,7 @@ function LibraryStoryItemSkeleton() {
 export default function LibraryListSkeleton() {
   return (
     <div className="library-grid">
-      {Array.from({ length: 6 }).map((_, index) => (
+      {Array.from({ length: 4 }).map((_, index) => (
         <LibraryStoryItemSkeleton key={index} />
       ))}
     </div>

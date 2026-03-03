@@ -29,7 +29,7 @@ export default function StoryCard({ story, ref }: StoryCardProps) {
   const location = useLocation();
 
   return (
-    <Card className="flex h-screen snap-start flex-col rounded-3xl" ref={ref}>
+    <Card className="flex h-full flex-col rounded-3xl" ref={ref}>
       <CardHeader>
         <CardTitle className="text-xl"> {title} </CardTitle>
         <GenreList storyGenres={story_genres} />

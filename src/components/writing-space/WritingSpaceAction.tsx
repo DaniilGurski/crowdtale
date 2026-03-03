@@ -4,18 +4,18 @@ import { Button } from "@components/ui/button";
 import WritingForm from "./WritingForm";
 import { joinStory } from "@/services/api";
 import { useQueryClient } from "@tanstack/react-query";
+import { useParams } from "react-router";
 
 interface WritingSpaceActionProps {
-  storyId?: string;
   userId?: string;
   status: StoryStatus;
 }
 
 export function WritingSpaceAction({
-  storyId,
   userId,
   status,
 }: WritingSpaceActionProps) {
+  const { id: storyId } = useParams();
   const { data: isParticipant } = useIsParticipant(storyId, userId);
   const client = useQueryClient();
 

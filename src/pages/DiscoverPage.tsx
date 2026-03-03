@@ -11,6 +11,7 @@ import StoryCardSkeleton from "@components/skeletons/StoryCardSkeleton";
 
 export default function DiscoverPage() {
   const scrollRef = useRef<HTMLDivElement | null>(null);
+
   const { ref, inView } = useInView({
     threshold: VIRTUALIZATION.INTERSECTION_THRESHOLD,
   });
@@ -43,30 +44,25 @@ export default function DiscoverPage() {
         className="relative w-full"
         style={{ height: `${virtualizer.getTotalSize()}px` }}
       >
-        {virtualItems.map(({ index, key, start }) => {
+        {virtualItems.map(({ index, key, start, size }) => {
           const isLast = index + 1 === stories.length;
           const story = stories[index];
           const isSkeleton = index >= stories.length;
 
-          if (isSkeleton) {
-            return (
-              <div
-                className="absolute inset-0"
-                style={{ transform: `translateY(${start}px)` }}
-                key={key}
-              >
-                <StoryCardSkeleton />
-              </div>
-            );
-          }
-
           return (
             <div
-              className="absolute inset-0"
-              style={{ transform: `translateY(${start}px)` }}
+              className="absolute snap-start"
               key={key}
+              style={{
+                height: `${size}px`,
+                transform: `translateY(${start}px)`,
+              }}
             >
-              <StoryCard story={story} ref={isLast ? ref : undefined} />
+              {isSkeleton ? (
+                <StoryCardSkeleton />
+              ) : (
+                <StoryCard story={story} ref={isLast ? ref : undefined} />
+              )}
             </div>
           );
         })}
