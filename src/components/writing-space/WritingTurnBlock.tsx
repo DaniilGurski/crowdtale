@@ -1,10 +1,14 @@
-interface TurnBlockProps {
+interface WritingTurnBlockProps {
   text: string;
   author: string;
   isOpening?: boolean;
 }
 
-export function TurnBlock({ text, author, isOpening = false }: TurnBlockProps) {
+export function WritingTurnBlock({
+  text,
+  author,
+  isOpening = false,
+}: WritingTurnBlockProps) {
   return (
     <div className="bg-card grid gap-y-4 rounded-xl p-4">
       <p>"{text}"</p>

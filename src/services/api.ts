@@ -34,7 +34,8 @@ export const getStoryById = async (storyId: string) => {
         )
       ), story_participants (joined_at, story_id, user_id, profiles (username))`,
     )
-    .eq("story_id", storyId);
+    .eq("id", storyId)
+    .single();
 
   if (error) throw error;
   return data;

@@ -1,7 +1,7 @@
-import { TurnBlock } from "@components/writing-space/TurnBlock";
+import { WritingTurnBlock } from "@/components/writing-space/WritingTurnBlock";
 import type { Turn, Profile } from "@T/index";
 
-export function TurnsList({
+export function WritingTurnsList({
   turns,
 }: {
   turns: (Turn & { profiles: Pick<Profile, "username"> | null })[];
@@ -9,7 +9,7 @@ export function TurnsList({
   return (
     <>
       {turns.map(({ content, profiles }, index) => (
-        <TurnBlock
+        <WritingTurnBlock
           key={index}
           text={content}
           author={profiles!.username}
