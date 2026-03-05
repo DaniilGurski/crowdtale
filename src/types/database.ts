@@ -204,6 +204,10 @@ export type Database = {
         }
         Returns: string
       }
+      create_turn: {
+        Args: { p_content: string; p_story_id: string; p_user_id: string }
+        Returns: undefined
+      }
       join_story: {
         Args: { p_story_id: string; p_user_id: string }
         Returns: undefined

@@ -9,12 +9,10 @@ export const useTurnsById = (storyId?: string) => {
     enabled: !!storyId,
   });
 
-  const firstTurn = query.data?.[0];
-  const storyInfo = firstTurn?.stories;
+  const firstTurn = query.data?.turns[0];
 
   return {
     ...query,
     firstTurn,
-    storyInfo,
   };
 };

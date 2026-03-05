@@ -1,18 +1,21 @@
+import { useTurnsById } from "@hooks/useTurnsById";
+import { useUser } from "@hooks/useUser";
+import useWritingForm from "@hooks/useWritingForm";
+import { getNextWriter } from "@lib/utils";
 import { Button } from "@components/ui/button";
-import { useState, type SubmitEvent } from "react";
 import { useParams } from "react-router";
 
 export default function WritingForm() {
+  const { user } = useUser();
+  const { userInput, setUserInput, handleSubmit } = useWritingForm();
   const { id: storyId } = useParams();
-  const [userInput, setUserInput] = useState("");
+  const { data: story } = useTurnsById(storyId);
 
-  const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  if (!story || !user) {
+    return null;
+  }
 
-    if (userInput.trim() === "") {
-      return;
-    }
-  };
+  const nextWriter = getNextWriter(story);
 
   return (
     <form
@@ -27,7 +30,13 @@ export default function WritingForm() {
         onChange={(e) => setUserInput(e.target.value)}
       />
 
-      <Button className="m-2 px-12"> Send </Button>
+      <Button
+        type="submit"
+        className="m-2 px-12"
+        disabled={user.id !== nextWriter.user_id}
+      >
+        Send
+      </Button>
     </form>
   );
 }

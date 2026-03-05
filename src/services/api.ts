@@ -1,19 +1,8 @@
-import type {
-  Genre,
-  NewStory,
-  StoryWithParticipants,
-  TurnWithProfiles,
-  StoryWithGenres,
-  TurnWithStoryInfo,
-} from "@T/index";
+import type { Genre, NewStory } from "@T/index";
 import { STORIES } from "@lib/constants";
 import { supabase } from "@lib/supabase/client";
 
-export const getAllStories = async ({
-  pageParam,
-}: {
-  pageParam: number;
-}): Promise<(StoryWithGenres & StoryWithParticipants)[]> => {
+export const getAllStories = async ({ pageParam }: { pageParam: number }) => {
   const from = pageParam * STORIES.PAGE_SIZE;
   const to = from + STORIES.PAGE_SIZE - 1;
 
@@ -25,17 +14,33 @@ export const getAllStories = async ({
           id,
           name
         )
-      ), story_participants ( user_id, profiles (username) )`,
+      ), story_participants (joined_at, story_id, user_id, profiles (username) )`,
     )
+    .eq("is_full", false)
     .range(from, to);
 
   if (error) throw error;
   return data;
 };
 
-export const getUserLibrary = async (): Promise<
-  (StoryWithGenres & StoryWithParticipants)[]
-> => {
+export const getStoryById = async (storyId: string) => {
+  const { data, error } = await supabase
+    .from("stories")
+    .select(
+      `id, title, opening_text, status, created_at, creator_id, is_full, story_genres (
+        genres (
+          id,
+          name
+        )
+      ), story_participants (joined_at, story_id, user_id, profiles (username))`,
+    )
+    .eq("story_id", storyId);
+
+  if (error) throw error;
+  return data;
+};
+
+export const getUserLibrary = async () => {
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -45,12 +50,7 @@ export const getUserLibrary = async (): Promise<
   const { data, error } = await supabase
     .from("stories")
     .select(
-      `id, title, opening_text, status, created_at, creator_id, is_full, story_genres (
-        genres (
-          id,
-          name
-        )
-      ), story_participants!inner ( user_id, profiles (username) )`,
+      `*, story_genres (genres (id, name)), story_participants!inner (user_id, profiles(username))`,
     )
     .eq("story_participants.user_id", user.id);
 
@@ -59,19 +59,21 @@ export const getUserLibrary = async (): Promise<
   return data;
 };
 
-export const getTurnsByStoryId = async (
-  story_id: string,
-): Promise<(TurnWithProfiles & TurnWithStoryInfo)[]> => {
+export const getTurnsByStoryId = async (storyId: string) => {
   const { data, error } = await supabase
-    .from("turns")
+    .from("stories")
     .select(
-      `id, story_id, user_id, content, turn_order, created_at, profiles (id, username), stories (title, opening_text, status, story_genres(genres(id, name)))`,
+      `*, story_genres(genres(*)), story_participants(user_id, joined_at, profiles(username)), turns(*, profiles(username))`,
     )
-    .eq("story_id", story_id)
-    .overrideTypes<(TurnWithProfiles & TurnWithStoryInfo)[]>();
+    .eq("id", storyId)
+    .order("turn_order", { referencedTable: "turns", ascending: true })
+    .order("joined_at", {
+      referencedTable: "story_participants",
+      ascending: true,
+    })
+    .single();
 
   if (error) throw error;
-
   return data;
 };
 
@@ -133,10 +135,19 @@ export const joinStory = async (storyId: string) => {
   if (error) throw error;
 };
 
-export const addNewStoryTurn = async (storyId: string) => {
+export const addNewStoryTurn = async (storyId: string, content: string) => {
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) throw new Error("Unauthorized");
+
+  const { error } = await supabase.rpc("create_turn", {
+    p_story_id: storyId,
+    p_user_id: user.id,
+    p_content: content,
+  });
+
+  if (error) throw error;
+  console.log("created new turn");
 };

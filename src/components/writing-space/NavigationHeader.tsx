@@ -10,6 +10,7 @@ interface NavigationHeaderProps {
   storyTitle?: string;
   storyGenres?: { genres: { id: number; name: string } }[];
   storyStatus?: StoryStatus;
+  nextWriterUsername?: string;
 }
 
 export default function NavigationHeader({
@@ -34,9 +35,11 @@ export default function NavigationHeader({
         </div>
       </div>
 
-      {storyStatus && (
-        <Badge variant="secondary">{capitalize(storyStatus)}</Badge>
-      )}
+      <div className="flex gap-x-2">
+        {storyStatus && (
+          <Badge variant="secondary">{capitalize(storyStatus)}</Badge>
+        )}
+      </div>
     </header>
   );
 }

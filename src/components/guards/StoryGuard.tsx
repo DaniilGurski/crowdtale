@@ -9,7 +9,7 @@ import { Spinner } from "@components/ui/spinner";
 export default function StoryGuard({ children }: PropsWithChildren) {
   const { id: storyId } = useParams();
   const { user, isLoading: userLoading } = useUser();
-  const { storyInfo, isPending: turnsPending } = useTurnsById(storyId);
+  const { data, isPending: turnsPending } = useTurnsById(storyId);
   const { data: isParticipant, isPending: participantPending } =
     useIsParticipant(storyId, user?.id);
 
@@ -21,7 +21,7 @@ export default function StoryGuard({ children }: PropsWithChildren) {
     );
   }
 
-  if (storyInfo?.status === "active" && !isParticipant) {
+  if (data?.status === "active" && !isParticipant) {
     return <p>You don't have permission to view this story!</p>;
   }
 
