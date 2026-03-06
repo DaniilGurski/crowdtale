@@ -33,6 +33,10 @@ export default function StorySettingsDialog() {
   const { data: isParticipant } = useIsParticipant(storyId, user?.id);
   const isCreator = user?.id === story?.creator_id;
 
+  if (story === undefined) {
+    return null;
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -52,7 +56,7 @@ export default function StorySettingsDialog() {
 
         <div className="grid gap-y-4">
           <h2 className="font-medium"> Deadline: </h2>
-          {format(story?.deadline!, "PPP")}
+          {story.deadline ? format(story.deadline, "PPP") : "No deadline set"}
         </div>
         <DialogFooter>
           <DialogClose asChild>
