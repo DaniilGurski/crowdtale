@@ -1,7 +1,6 @@
 import type { Genre, NewStory } from "@T/index";
 import { STORIES } from "@lib/constants";
 import { supabase } from "@lib/supabase/client";
-import { addMinutes, format } from "date-fns";
 
 export const getAllStories = async ({ pageParam }: { pageParam: number }) => {
   const from = pageParam * STORIES.PAGE_SIZE;
@@ -10,7 +9,7 @@ export const getAllStories = async ({ pageParam }: { pageParam: number }) => {
   const { data, error } = await supabase
     .from("stories")
     .select(
-      `id, title, opening_text, status, created_at, creator_id, is_full, story_genres (
+      `*, story_genres (
         genres (
           id,
           name
@@ -152,7 +151,6 @@ export const addNewStoryTurn = async (storyId: string, content: string) => {
   });
 
   if (error) throw error;
-  console.log("created new turn");
 };
 
 export const deleteParticipantById = async (userId: string) => {
