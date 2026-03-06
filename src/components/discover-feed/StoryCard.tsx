@@ -12,12 +12,7 @@ import { getRelativeTime } from "@lib/utils";
 
 import { Link, useLocation } from "react-router";
 import GenreList from "../GenreList";
-import type {
-  Genre,
-  Story,
-  StoryGenre,
-  StoryParticipantWithProfiles,
-} from "@/types";
+import type { Genre, Story, StoryParticipantWithProfiles } from "@/types";
 
 interface StoryCardProps extends ComponentPropsWithRef<"div"> {
   story: Story & {
