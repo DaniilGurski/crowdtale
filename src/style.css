@@ -98,7 +98,7 @@
   --chart-3: oklch(0.4851 0.057 72.6827);
   --chart-4: oklch(0.6777 0.0624 64.7755);
   --chart-5: oklch(0.7264 0.0581 66.6967);
-  --sidebar: oklch(0.9239 0.019 83.0636);
+  --sidebar: oklch(98.005% 0.00725 80.569);
   --sidebar-foreground: oklch(0.376 0.0225 64.3434);
   --sidebar-primary: oklch(0.618 0.0778 65.5444);
   --sidebar-primary-foreground: oklch(1 0 0);
@@ -281,7 +281,11 @@
 @layer utilities {
   .library-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: calc(var(--spacing) * 2);
+  }
+  .writing-form-grid {
+    display: grid;
+    grid-template-rows: 120px 1fr;
   }
 }

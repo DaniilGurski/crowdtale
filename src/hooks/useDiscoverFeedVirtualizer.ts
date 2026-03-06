@@ -14,8 +14,8 @@ export const useDiscoverFeedVirtualizer = (
 
   const virtualizer = useVirtualizer({
     count: stories.length + skeletonCount,
-    estimateSize: () => innerHeight,
     getScrollElement: () => scrollRef.current,
+    estimateSize: () => window.innerHeight,
   });
   const virtualItems = virtualizer.getVirtualItems();
 

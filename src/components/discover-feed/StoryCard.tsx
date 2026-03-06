@@ -8,30 +8,31 @@ import {
   CardTitle,
 } from "@components/ui/card";
 import { Button } from "@components/ui/button";
-import { Badge } from "@components/ui/badge";
 import { getRelativeTime } from "@lib/utils";
-import type { StoryWithGenres } from "@T/index";
+import type { StoryWithGenres, StoryWithParticipants } from "@T/index";
+import { Link, useLocation } from "react-router";
+import GenreList from "../GenreList";
 
 interface StoryCardProps extends ComponentPropsWithRef<"div"> {
-  story: StoryWithGenres;
+  story: StoryWithGenres & StoryWithParticipants;
 }
 
 export default function StoryCard({ story, ref }: StoryCardProps) {
-  const { title, opening_text, creator_id, created_at, story_genres } = story;
+  const {
+    id,
+    title,
+    opening_text,
+    created_at,
+    story_genres,
+    story_participants,
+  } = story;
+  const location = useLocation();
 
   return (
-    <Card className="flex h-screen snap-start flex-col rounded-3xl" ref={ref}>
+    <Card className="flex h-full flex-col rounded-3xl" ref={ref}>
       <CardHeader>
         <CardTitle className="text-xl"> {title} </CardTitle>
-        <ul className="flex flex-wrap gap-2">
-          {story_genres.map(({ genres }) => {
-            return (
-              <li key={genres.id}>
-                <Badge key={genres.id}> {genres.name} </Badge>
-              </li>
-            );
-          })}
-        </ul>
+        <GenreList storyGenres={story_genres} />
       </CardHeader>
 
       <CardContent className="flex-1">
@@ -42,14 +43,18 @@ export default function StoryCard({ story, ref }: StoryCardProps) {
         <div className="flex justify-between">
           <p className="flex gap-x-2">
             <PenIcon />
-            <span>By: {creator_id.substring(0, 10)}</span>
+            <span>By: {story_participants[0].profiles.username}</span>
           </p>
           <p className="flex gap-x-2">
             <Clock />
             <span> {getRelativeTime(created_at)} </span>
           </p>
         </div>
-        <Button> Join Story </Button>
+        <Button asChild>
+          <Link to={`/stories/${id}`} state={{ from: location }}>
+            View
+          </Link>
+        </Button>
       </CardFooter>
     </Card>
   );

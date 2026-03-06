@@ -1,0 +1,21 @@
+import { Badge } from "@components/ui/badge";
+import { cn } from "@lib/utils";
+
+interface GenreListProps {
+  storyGenres: { genres: { id: number; name: string } }[] | undefined;
+  className?: string;
+}
+
+export default function GenreList({ storyGenres, className }: GenreListProps) {
+  return (
+    <ul className={cn("flex flex-wrap gap-2", className)}>
+      {storyGenres?.map(({ genres }) => {
+        return (
+          <li key={genres.id}>
+            <Badge key={genres.id}> {genres.name} </Badge>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}

@@ -52,24 +52,27 @@ export type Database = {
           created_at: string | null
           creator_id: string
           id: string
+          is_full: boolean
           opening_text: string
-          status: string | null
+          status: Database["public"]["Enums"]["story_status"]
           title: string
         }
         Insert: {
           created_at?: string | null
           creator_id: string
           id?: string
-          opening_text: string
-          status?: string | null
+          is_full?: boolean
+          opening_text?: string
+          status: Database["public"]["Enums"]["story_status"]
           title: string
         }
         Update: {
           created_at?: string | null
           creator_id?: string
           id?: string
+          is_full?: boolean
           opening_text?: string
-          status?: string | null
+          status?: Database["public"]["Enums"]["story_status"]
           title?: string
         }
         Relationships: [
@@ -201,9 +204,17 @@ export type Database = {
         }
         Returns: string
       }
+      create_turn: {
+        Args: { p_content: string; p_story_id: string; p_user_id: string }
+        Returns: undefined
+      }
+      join_story: {
+        Args: { p_story_id: string; p_user_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
-      [_ in never]: never
+      story_status: "waiting" | "active" | "completed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -330,6 +341,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      story_status: ["waiting", "active", "completed"],
+    },
   },
 } as const

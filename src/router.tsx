@@ -7,6 +7,7 @@ import Login from "@pages/Login";
 import DiscoverPage from "@pages/DiscoverPage";
 import MyLibraryPage from "@pages/MyLibraryPage";
 import CreateStoryPage from "./pages/CreateStoryPage";
+import WritingSpacePage from "./pages/WritingSpacePage";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <DiscoverPage />,
+      },
+      {
+        path: "/stories/:id",
+        element: <WritingSpacePage />,
       },
       {
         path: "/my-library",
