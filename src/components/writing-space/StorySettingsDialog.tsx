@@ -24,7 +24,6 @@ import { useUser } from "@hooks/useUser";
 import { useIsParticipant } from "@hooks/useIsParticipant";
 import { useStoryById } from "@hooks/useStoryById";
 import { formatDate } from "@/lib/utils";
-import { useEffect } from "react";
 
 export default function StorySettingsDialog() {
   const { id: storyId } = useParams();

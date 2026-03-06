@@ -2,7 +2,7 @@ import { Button } from "@components/ui/button";
 import { Badge } from "@components/ui/badge";
 import GenreList from "@components/GenreList";
 import { useLocation, useNavigate, useParams } from "react-router";
-import { ChevronLeft, RefreshCcw, Settings } from "lucide-react";
+import { ChevronLeft, RefreshCcw } from "lucide-react";
 import type { StoryStatus } from "@T/index";
 import { capitalize } from "@/lib/utils";
 import StorySettingsDialog from "./StorySettingsDialog";
