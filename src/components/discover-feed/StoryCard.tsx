@@ -9,12 +9,21 @@ import {
 } from "@components/ui/card";
 import { Button } from "@components/ui/button";
 import { getRelativeTime } from "@lib/utils";
-import type { StoryWithGenres, StoryWithParticipants } from "@T/index";
+
 import { Link, useLocation } from "react-router";
 import GenreList from "../GenreList";
+import type {
+  Genre,
+  Story,
+  StoryGenre,
+  StoryParticipantWithProfiles,
+} from "@/types";
 
 interface StoryCardProps extends ComponentPropsWithRef<"div"> {
-  story: StoryWithGenres & StoryWithParticipants;
+  story: Story & {
+    story_genres: { genres: Genre }[];
+    story_participants: StoryParticipantWithProfiles[];
+  };
 }
 
 export default function StoryCard({ story, ref }: StoryCardProps) {
