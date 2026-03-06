@@ -24,6 +24,7 @@ import { useUser } from "@hooks/useUser";
 import { useIsParticipant } from "@hooks/useIsParticipant";
 import { useStoryById } from "@hooks/useStoryById";
 import { formatDate } from "@/lib/utils";
+import { format } from "date-fns";
 
 export default function StorySettingsDialog() {
   const { id: storyId } = useParams();
@@ -31,6 +32,10 @@ export default function StorySettingsDialog() {
   const { user } = useUser();
   const { data: isParticipant } = useIsParticipant(storyId, user?.id);
   const isCreator = user?.id === story?.creator_id;
+
+  if (story === undefined) {
+    return null;
+  }
 
   return (
     <Dialog>
@@ -45,8 +50,13 @@ export default function StorySettingsDialog() {
           <DialogTitle>Story Settings</DialogTitle>
         </DialogHeader>
         <div className="grid gap-y-4">
-          <h2 className="font-medium"> Participants </h2>
+          <h2 className="font-medium"> Participants: </h2>
           <StoryParticipantList />
+        </div>
+
+        <div className="grid gap-y-4">
+          <h2 className="font-medium"> Deadline: </h2>
+          {story.deadline ? format(story.deadline, "PPP") : "No deadline set"}
         </div>
         <DialogFooter>
           <DialogClose asChild>

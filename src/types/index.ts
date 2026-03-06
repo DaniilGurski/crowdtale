@@ -34,5 +34,6 @@ export type StoryParticipantWithProfiles = Omit<
 export type NewStory = {
   title: string;
   genres: string[];
-  opening_text: string;
+  openingText: string;
+  deadlineDate: string;
 };

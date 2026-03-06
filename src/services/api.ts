@@ -9,7 +9,7 @@ export const getAllStories = async ({ pageParam }: { pageParam: number }) => {
   const { data, error } = await supabase
     .from("stories")
     .select(
-      `id, title, opening_text, status, created_at, creator_id, is_full, story_genres (
+      `*, story_genres (
         genres (
           id,
           name
@@ -27,7 +27,7 @@ export const getStoryById = async (storyId: string) => {
   const { data, error } = await supabase
     .from("stories")
     .select(
-      `id, title, opening_text, status, created_at, creator_id, is_full, story_genres (
+      `*, story_genres (
         genres (
           id,
           name
@@ -113,9 +113,10 @@ export const addNewStory = async (newStory: NewStory) => {
 
   const { error } = await supabase.rpc("create_story_with_genres", {
     p_title: newStory.title,
-    p_opening_text: newStory.opening_text,
+    p_opening_text: newStory.openingText,
     p_creator_id: user.id,
     p_genre_ids: newStory.genres.map((id) => parseInt(id)),
+    p_deadline: newStory.deadlineDate,
   });
 
   if (error) throw error;
@@ -150,7 +151,6 @@ export const addNewStoryTurn = async (storyId: string, content: string) => {
   });
 
   if (error) throw error;
-  console.log("created new turn");
 };
 
 export const deleteParticipantById = async (userId: string) => {
@@ -160,7 +160,6 @@ export const deleteParticipantById = async (userId: string) => {
     .eq("user_id", userId);
 
   if (error) throw error;
-  console.log(`deleted user ${userId}`);
 };
 
 export const deleteStoryById = async (storyId: string) => {
@@ -169,5 +168,6 @@ export const deleteStoryById = async (storyId: string) => {
     .delete()
     .eq("id", storyId)
     .single();
+
   if (error) throw error;
 };

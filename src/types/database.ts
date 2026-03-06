@@ -51,6 +51,7 @@ export type Database = {
         Row: {
           created_at: string | null
           creator_id: string
+          deadline: string | null
           id: string
           is_full: boolean
           opening_text: string
@@ -60,6 +61,7 @@ export type Database = {
         Insert: {
           created_at?: string | null
           creator_id: string
+          deadline?: string | null
           id?: string
           is_full?: boolean
           opening_text?: string
@@ -69,6 +71,7 @@ export type Database = {
         Update: {
           created_at?: string | null
           creator_id?: string
+          deadline?: string | null
           id?: string
           is_full?: boolean
           opening_text?: string
@@ -195,9 +198,11 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      close_expired_stories: { Args: never; Returns: undefined }
       create_story_with_genres: {
         Args: {
           p_creator_id: string
+          p_deadline: string
           p_genre_ids: number[]
           p_opening_text: string
           p_title: string

@@ -9,9 +9,15 @@ import {
   CardFooter,
   CardContent,
 } from "@components/ui/card";
-import { Field, FieldError, FieldLabel } from "@components/ui/field";
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+} from "@components/ui/field";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
+import { DatePicker } from "@components/DatePicker";
 import { ToggleGroup, ToggleGroupItem } from "@components/ui/toggle-group";
 import {
   InputGroup,
@@ -30,6 +36,7 @@ const schema = z.object({
   openingText: z
     .string()
     .min(20, { error: "Opening text should be at least 50 characters long" }),
+  deadlineDate: z.string().nonempty({ error: "Date is required" }),
 });
 
 type CreateStoryFormFields = z.infer<typeof schema>;
@@ -42,6 +49,7 @@ export default function CreateStoryForm() {
       genres: ["1"],
       openingText:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur molestie erat dolor, sed condimentum dolor porta vel.",
+      deadlineDate: "",
     },
   });
 
@@ -57,11 +65,13 @@ export default function CreateStoryForm() {
     title,
     genres,
     openingText,
+    deadlineDate,
   }) => {
     const postStory = addNewStory({
       title,
       genres,
-      opening_text: openingText,
+      openingText,
+      deadlineDate,
     });
 
     await toast.promise(
@@ -144,6 +154,30 @@ export default function CreateStoryForm() {
                     <FieldError errors={[fieldState.error]} />
                   )}
                 </ToggleGroup>
+              </Field>
+            )}
+          />
+          <Controller
+            name="deadlineDate"
+            control={control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>Deadline</FieldLabel>
+
+                <DatePicker
+                  id={field.name}
+                  value={field.value}
+                  onChange={field.onChange}
+                  placeholder="Select deadline date"
+                  aria-invalid={fieldState.invalid}
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+                <FieldDescription>
+                  The story will be marked as complete and will only be
+                  available for reading after the deadline has passed.
+                </FieldDescription>
               </Field>
             )}
           />

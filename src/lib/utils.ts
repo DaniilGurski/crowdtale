@@ -38,6 +38,16 @@ export const formatDate = (str: string) => {
   });
 };
 
+export const getRemainingTime = (deadline: string) => {
+  const remaining = new Date(deadline).getTime() - Date.now();
+  if (remaining <= 0) return "Expired";
+
+  const hours = Math.floor(remaining / (1000 * 60 * 60));
+  const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+
+  return `${hours}h ${minutes}m left`;
+};
+
 export const getNextWriter = (
   story: StoryWithTurns,
 ): StoryParticipantWithProfiles => {
