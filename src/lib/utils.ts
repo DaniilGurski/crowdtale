@@ -30,6 +30,14 @@ export const capitalize = (str: string) => {
     .join(" ");
 };
 
+export const formatDate = (str: string) => {
+  return new Date(str).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+};
+
 export const getNextWriter = (
   story: StoryWithTurns,
 ): StoryParticipantWithProfiles => {

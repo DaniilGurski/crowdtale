@@ -7,8 +7,8 @@ import { useParams } from "react-router";
 
 export default function WritingForm() {
   const { user } = useUser();
-  const { userInput, setUserInput, handleSubmit } = useWritingForm();
   const { id: storyId } = useParams();
+  const { userInput, setUserInput, handleSubmit } = useWritingForm(storyId);
   const { data: story } = useTurnsById(storyId);
 
   if (!story || !user) {

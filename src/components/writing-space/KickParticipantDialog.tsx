@@ -10,8 +10,24 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { deleteParticipantById } from "@/services/api";
+import { useQueryClient } from "@tanstack/react-query";
+import { useParams } from "react-router";
 
-export function KickParticipantDialog() {
+interface KickParticipantDialogProps {
+  userId: string;
+}
+
+export function KickParticipantDialog({ userId }: KickParticipantDialogProps) {
+  const { id: storyId } = useParams();
+  const queryClient = useQueryClient();
+
+  const handleClick = async () => {
+    await deleteParticipantById(userId);
+    await queryClient.invalidateQueries({ queryKey: ["story", storyId] });
+    await queryClient.invalidateQueries({ queryKey: ["turns", storyId] });
+  };
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -27,7 +43,9 @@ export function KickParticipantDialog() {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction variant="destructive">Kick</AlertDialogAction>
+          <AlertDialogAction variant="destructive" onClick={handleClick}>
+            Kick
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

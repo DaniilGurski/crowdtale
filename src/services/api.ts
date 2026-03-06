@@ -152,3 +152,22 @@ export const addNewStoryTurn = async (storyId: string, content: string) => {
   if (error) throw error;
   console.log("created new turn");
 };
+
+export const deleteParticipantById = async (userId: string) => {
+  const { error } = await supabase
+    .from("story_participants")
+    .delete()
+    .eq("user_id", userId);
+
+  if (error) throw error;
+  console.log(`deleted user ${userId}`);
+};
+
+export const deleteStoryById = async (storyId: string) => {
+  const { error } = await supabase
+    .from("stories")
+    .delete()
+    .eq("id", storyId)
+    .single();
+  if (error) throw error;
+};

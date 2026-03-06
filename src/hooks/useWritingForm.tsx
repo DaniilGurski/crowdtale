@@ -9,6 +9,7 @@ export default function useWritingForm(storyId?: string) {
   const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!userInput.trim() || !storyId) return;
+    console.log();
 
     await addNewStoryTurn(storyId, userInput);
     queryClient.invalidateQueries({ queryKey: ["turns", storyId] });

@@ -1,19 +1,24 @@
-import { type ComponentPropsWithRef } from "react";
 import { Card, CardFooter, CardHeader, CardTitle } from "@components/ui/card";
 import { Button } from "@components/ui/button";
 import GenreList from "@components/GenreList";
 import { getRelativeTime } from "@lib/utils";
-import type { StoryWithGenres, StoryWithParticipants } from "@T/index";
 import { Clock, PenIcon } from "lucide-react";
 import { Link, useLocation } from "react-router";
+import { useStoryById } from "@/hooks/useStoryById";
 
-interface LibraryStoryItemProps extends ComponentPropsWithRef<"div"> {
-  story: StoryWithGenres & StoryWithParticipants;
+interface LibraryStoryItemProps {
+  storyId: string;
 }
 
-export default function LibraryStoryItem({ story }: LibraryStoryItemProps) {
-  const { id, title, created_at, story_genres, story_participants } = story;
+export default function LibraryStoryItem({ storyId }: LibraryStoryItemProps) {
+  const { data: story } = useStoryById(storyId);
   const location = useLocation();
+
+  if (!story) {
+    return null;
+  }
+
+  const { title, story_genres, story_participants, created_at } = story;
 
   return (
     <Card className="rounded-3xl">
@@ -33,7 +38,7 @@ export default function LibraryStoryItem({ story }: LibraryStoryItemProps) {
           </p>
         </div>
         <Button asChild>
-          <Link to={`/stories/${id}`} state={{ from: location }}>
+          <Link to={`/stories/${storyId}`} state={{ from: location }}>
             View
           </Link>
         </Button>

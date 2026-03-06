@@ -39,7 +39,7 @@ export default function WritingSpacePage() {
         <div className="mx-auto grid w-[90%] max-w-2xl flex-1 content-start gap-y-4">
           <WritingTurnsList turns={turns} />
 
-          {isParticipant && (
+          {isParticipant && story.status === "active" && (
             <p>Waiting for {nextWriter.profiles.username} turn...</p>
           )}
         </div>

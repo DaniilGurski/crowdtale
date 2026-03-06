@@ -30,12 +30,12 @@ export default function LibraryList() {
     <>
       <TabsContent className="library-grid" value="active">
         {activeStories?.map((story) => (
-          <LibraryStoryItem key={story.id} story={story} />
+          <LibraryStoryItem key={story.id} storyId={story.id} />
         ))}
       </TabsContent>
       <TabsContent className="library-grid" value="completed">
         {completedStories?.map((story) => (
-          <LibraryStoryItem key={story.id} story={story} />
+          <LibraryStoryItem key={story.id} storyId={story.id} />
         ))}
       </TabsContent>
     </>

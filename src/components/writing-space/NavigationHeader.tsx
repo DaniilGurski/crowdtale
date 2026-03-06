@@ -1,11 +1,12 @@
 import { Button } from "@components/ui/button";
 import { Badge } from "@components/ui/badge";
 import GenreList from "@components/GenreList";
-import { useLocation, useNavigate } from "react-router";
-import { ChevronLeft, Settings } from "lucide-react";
+import { useLocation, useNavigate, useParams } from "react-router";
+import { ChevronLeft, RefreshCcw, Settings } from "lucide-react";
 import type { StoryStatus } from "@T/index";
 import { capitalize } from "@/lib/utils";
 import StorySettingsDialog from "./StorySettingsDialog";
+import { useTurnsById } from "@/hooks/useTurnsById";
 
 interface NavigationHeaderProps {
   storyTitle?: string;
@@ -19,6 +20,8 @@ export default function NavigationHeader({
   storyGenres,
   storyStatus,
 }: NavigationHeaderProps) {
+  const { id: storyId } = useParams();
+  const { refetch } = useTurnsById(storyId);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from.pathname || "/";
@@ -41,6 +44,10 @@ export default function NavigationHeader({
           <Badge variant="secondary">{capitalize(storyStatus)}</Badge>
         )}
         <StorySettingsDialog />
+        <Button variant="ghost" onClick={() => refetch()}>
+          <span className="sr-only"> Refresh </span>
+          <RefreshCcw />
+        </Button>
       </div>
     </header>
   );

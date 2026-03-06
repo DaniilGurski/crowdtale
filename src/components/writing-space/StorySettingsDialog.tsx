@@ -2,38 +2,36 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "../ui/button";
+} from "@components/ui/dialog";
+import { Button } from "@components/ui/button";
 import { Settings } from "lucide-react";
 import { useParams } from "react-router";
-import { useStoryById } from "@/hooks/useStoryById";
-import type { StoryParticipantWithProfiles } from "@/types";
 import {
   Item,
   ItemActions,
   ItemContent,
   ItemDescription,
   ItemTitle,
-} from "../ui/item";
-import { KickParticipantDialog } from "./KickParticipantDialog";
-import { DeleteStoryDialog } from "./DeleteStoryDialog";
-
-interface StoryParticipantListProps {
-  storyParticipants: StoryParticipantWithProfiles[];
-}
+} from "@components/ui/item";
+import { KickParticipantDialog } from "@components/writing-space/KickParticipantDialog";
+import { DeleteStoryDialog } from "@components/writing-space/DeleteStoryDialog";
+import { LeaveStoryDialog } from "@components/writing-space/LeaveStoryDialog";
+import { useUser } from "@hooks/useUser";
+import { useIsParticipant } from "@hooks/useIsParticipant";
+import { useStoryById } from "@hooks/useStoryById";
+import { formatDate } from "@/lib/utils";
+import { useEffect } from "react";
 
 export default function StorySettingsDialog() {
   const { id: storyId } = useParams();
   const { data: story } = useStoryById(storyId);
-
-  // 1. Get all participants for a story
-  // 2. If you are story creator, you can delete others and delete story
-  // 3. If you are just a participant, you can leave a story
+  const { user } = useUser();
+  const { data: isParticipant } = useIsParticipant(storyId, user?.id);
+  const isCreator = user?.id === story?.creator_id;
 
   return (
     <Dialog>
@@ -55,7 +53,8 @@ export default function StorySettingsDialog() {
           <DialogClose asChild>
             <Button variant="secondary"> Close </Button>
           </DialogClose>
-          <DeleteStoryDialog />
+          {isCreator && <DeleteStoryDialog />}
+          {isParticipant && !isCreator && <LeaveStoryDialog />}
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -64,7 +63,9 @@ export default function StorySettingsDialog() {
 
 function StoryParticipantList() {
   const { id: storyId } = useParams();
+  const { user } = useUser();
   const { data: story, isPending, error } = useStoryById(storyId);
+  const isCreator = user?.id === story?.creator_id;
 
   if (isPending) {
     return <p> Loading... </p>;
@@ -85,10 +86,15 @@ function StoryParticipantList() {
           <Item variant="outline">
             <ItemContent>
               <ItemTitle> {p.profiles.username} </ItemTitle>
-              <ItemDescription>Join date: {p.joined_at}</ItemDescription>
+              <ItemDescription>
+                Joined:
+                <span> {formatDate(p.joined_at!)} </span>
+              </ItemDescription>
             </ItemContent>
             <ItemActions>
-              <KickParticipantDialog />
+              {isCreator && p.user_id !== user?.id && (
+                <KickParticipantDialog userId={p.user_id} />
+              )}
             </ItemActions>
           </Item>
         </li>
