@@ -1,6 +1,7 @@
 import type { Genre, NewStory } from "@T/index";
 import { STORIES } from "@lib/constants";
 import { supabase } from "@lib/supabase/client";
+import { addMinutes, format } from "date-fns";
 
 export const getAllStories = async ({ pageParam }: { pageParam: number }) => {
   const from = pageParam * STORIES.PAGE_SIZE;
@@ -27,7 +28,7 @@ export const getStoryById = async (storyId: string) => {
   const { data, error } = await supabase
     .from("stories")
     .select(
-      `id, title, opening_text, status, created_at, creator_id, is_full, story_genres (
+      `*, story_genres (
         genres (
           id,
           name
@@ -113,9 +114,10 @@ export const addNewStory = async (newStory: NewStory) => {
 
   const { error } = await supabase.rpc("create_story_with_genres", {
     p_title: newStory.title,
-    p_opening_text: newStory.opening_text,
+    p_opening_text: newStory.openingText,
     p_creator_id: user.id,
     p_genre_ids: newStory.genres.map((id) => parseInt(id)),
+    p_deadline: newStory.deadlineDate,
   });
 
   if (error) throw error;
@@ -160,7 +162,6 @@ export const deleteParticipantById = async (userId: string) => {
     .eq("user_id", userId);
 
   if (error) throw error;
-  console.log(`deleted user ${userId}`);
 };
 
 export const deleteStoryById = async (storyId: string) => {
@@ -169,5 +170,6 @@ export const deleteStoryById = async (storyId: string) => {
     .delete()
     .eq("id", storyId)
     .single();
+
   if (error) throw error;
 };

@@ -1,30 +1,26 @@
 import { Button } from "@components/ui/button";
 import { Badge } from "@components/ui/badge";
 import GenreList from "@components/GenreList";
+import StorySettingsDialog from "@components/writing-space/StorySettingsDialog";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { ChevronLeft, RefreshCcw } from "lucide-react";
-import type { StoryStatus } from "@T/index";
-import { capitalize } from "@/lib/utils";
-import StorySettingsDialog from "./StorySettingsDialog";
-import { useTurnsById } from "@/hooks/useTurnsById";
+import { capitalize } from "@lib/utils";
+import { useTurnsById } from "@hooks/useTurnsById";
+import { useStoryById } from "@/hooks/useStoryById";
 
-interface NavigationHeaderProps {
-  storyTitle?: string;
-  storyGenres?: { genres: { id: number; name: string } }[];
-  storyStatus?: StoryStatus;
-  nextWriterUsername?: string;
-}
-
-export default function NavigationHeader({
-  storyTitle,
-  storyGenres,
-  storyStatus,
-}: NavigationHeaderProps) {
+export default function NavigationHeader() {
   const { id: storyId } = useParams();
+  const { data: story, isPending } = useStoryById(storyId);
   const { refetch } = useTurnsById(storyId);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from.pathname || "/";
+
+  if (isPending) {
+    return null;
+  }
+
+  const { title, story_genres, status } = story!;
 
   return (
     <header className="bg-card mb-4 flex items-center justify-between rounded-4xl p-4">
@@ -34,15 +30,13 @@ export default function NavigationHeader({
           <ChevronLeft />
         </Button>
         <div>
-          <h2> {storyTitle} </h2>
-          <GenreList storyGenres={storyGenres} />
+          <h2> {title} </h2>
+          <GenreList storyGenres={story_genres} />
         </div>
       </div>
 
       <div className="flex gap-x-2">
-        {storyStatus && (
-          <Badge variant="secondary">{capitalize(storyStatus)}</Badge>
-        )}
+        {status && <Badge variant="secondary">{capitalize(status)}</Badge>}
         <StorySettingsDialog />
         <Button variant="ghost" onClick={() => refetch()}>
           <span className="sr-only"> Refresh </span>

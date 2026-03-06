@@ -23,17 +23,12 @@ export default function WritingSpacePage() {
     return <p> {error.message} </p>;
   }
 
-  const { turns, title, story_genres, status } = story;
+  const { turns, status } = story;
   const nextWriter = getNextWriter(story);
 
   return (
     <section className="h-full flex-1 overflow-y-scroll">
-      <NavigationHeader
-        storyTitle={title}
-        storyGenres={story_genres}
-        storyStatus={status}
-        nextWriterUsername={nextWriter.profiles.username}
-      />
+      <NavigationHeader />
 
       <div className="flex h-full flex-col">
         <div className="mx-auto grid w-[90%] max-w-2xl flex-1 content-start gap-y-4">
