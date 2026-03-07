@@ -36,7 +36,7 @@ const schema = z.object({
   openingText: z
     .string()
     .min(20, { error: "Opening text should be at least 50 characters long" }),
-  deadlineDate: z.string().nonempty({ error: "Date is required" }),
+  deadlineDate: z.string().optional(),
 });
 
 type CreateStoryFormFields = z.infer<typeof schema>;
@@ -45,10 +45,9 @@ export default function CreateStoryForm() {
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      title: "Lorem",
-      genres: ["1"],
-      openingText:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur molestie erat dolor, sed condimentum dolor porta vel.",
+      title: "",
+      genres: [],
+      openingText: "",
       deadlineDate: "",
     },
   });
@@ -211,7 +210,11 @@ export default function CreateStoryForm() {
       </CardContent>
 
       <CardFooter>
-        <Button type="submit" form="create-story-form">
+        <Button
+          className="w-full md:w-min"
+          type="submit"
+          form="create-story-form"
+        >
           Create
         </Button>
       </CardFooter>

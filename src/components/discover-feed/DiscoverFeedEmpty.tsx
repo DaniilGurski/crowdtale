@@ -19,10 +19,7 @@ export default function DiscoverFeedEmpty() {
         </EmptyMedia>
         <EmptyTitle> No stories found ! </EmptyTitle>
 
-        <EmptyDescription>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam quidem
-          natus, magnam esse molestias maiores perferendis.
-        </EmptyDescription>
+        <EmptyDescription>Perhaps you will be the first?</EmptyDescription>
       </EmptyHeader>
       <EmptyContent>
         <Button asChild>

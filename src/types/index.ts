@@ -35,5 +35,5 @@ export type NewStory = {
   title: string;
   genres: string[];
   openingText: string;
-  deadlineDate: string;
+  deadlineDate?: string;
 };

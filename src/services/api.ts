@@ -128,7 +128,7 @@ export const addNewStory = async (newStory: NewStory) => {
     p_opening_text: newStory.openingText,
     p_creator_id: user.id,
     p_genre_ids: newStory.genres.map((id) => parseInt(id)),
-    p_deadline: newStory.deadlineDate,
+    p_deadline: newStory.deadlineDate ? newStory.deadlineDate : undefined,
   });
 
   if (error) throw error;
@@ -165,11 +165,15 @@ export const addNewStoryTurn = async (storyId: string, content: string) => {
   if (error) throw error;
 };
 
-export const deleteParticipantById = async (userId: string) => {
+export const deleteParticipantById = async (
+  storyId: string,
+  userId: string,
+) => {
   const { error } = await supabase
     .from("story_participants")
     .delete()
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .eq("story_id", storyId);
 
   if (error) throw error;
 };

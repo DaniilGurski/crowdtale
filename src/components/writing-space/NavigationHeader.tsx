@@ -23,7 +23,7 @@ export default function NavigationHeader() {
   const { title, story_genres, status } = story!;
 
   return (
-    <header className="bg-card mb-4 flex items-center justify-between rounded-4xl p-4">
+    <header className="bg-card mb-4 flex items-center justify-between rounded-4xl p-4 shadow-sm">
       <div className="flex items-center gap-x-2">
         <Button variant="ghost" onClick={() => navigate(from)}>
           <span className="sr-only"> Go back </span>

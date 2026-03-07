@@ -35,7 +35,9 @@ export default function WritingSpacePage() {
           <WritingTurnsList turns={turns} />
 
           {isParticipant && story.status === "active" && (
-            <p>Waiting for {nextWriter.profiles.username} turn...</p>
+            <p className="animate-pulse text-sm text-orange-950/70 italic">
+              Waiting for {nextWriter.profiles.username} turn...
+            </p>
           )}
         </div>
 

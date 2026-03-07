@@ -202,7 +202,7 @@ export type Database = {
       create_story_with_genres: {
         Args: {
           p_creator_id: string
-          p_deadline: string
+          p_deadline?: string
           p_genre_ids: number[]
           p_opening_text: string
           p_title: string
