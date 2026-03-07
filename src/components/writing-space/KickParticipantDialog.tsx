@@ -23,7 +23,9 @@ export function KickParticipantDialog({ userId }: KickParticipantDialogProps) {
   const queryClient = useQueryClient();
 
   const handleClick = async () => {
-    await deleteParticipantById(userId);
+    if (!storyId) return;
+
+    await deleteParticipantById(storyId, userId);
     await queryClient.invalidateQueries({ queryKey: ["story", storyId] });
     await queryClient.invalidateQueries({ queryKey: ["turns", storyId] });
   };

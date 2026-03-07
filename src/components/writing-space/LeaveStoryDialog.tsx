@@ -12,16 +12,17 @@ import {
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/hooks/useUser";
 import { deleteParticipantById } from "@/services/api";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 export function LeaveStoryDialog() {
+  const { id: storyId } = useParams();
   const { user } = useUser();
   const navigate = useNavigate();
 
   const handleClick = async () => {
-    if (!user) return;
+    if (!user || !storyId) return;
 
-    await deleteParticipantById(user.id);
+    await deleteParticipantById(storyId, user.id);
     navigate("/");
   };
 

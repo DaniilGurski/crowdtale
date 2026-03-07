@@ -10,7 +10,7 @@ export function WritingTurnBlock({
   isOpening = false,
 }: WritingTurnBlockProps) {
   return (
-    <div className="bg-card grid gap-y-4 rounded-xl p-4">
+    <div className="bg-card grid gap-y-4 rounded-xl p-4 shadow-sm">
       <p>"{text}"</p>
       <span className="text-xs">
         - {isOpening ? `Opening by` : `By`} {author}

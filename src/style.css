@@ -282,7 +282,7 @@
   .library-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: calc(var(--spacing) * 2);
+    gap: calc(var(--spacing) * 4);
   }
   .writing-form-grid {
     display: grid;
