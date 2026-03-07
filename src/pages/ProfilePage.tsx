@@ -1,10 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAtomValue } from "jotai";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
-import { userAtom } from "@/lib/atoms";
 import { getProfileById, updateUsername } from "@/services/api";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
@@ -17,7 +15,6 @@ import {
   CardTitle,
 } from "@components/ui/card";
 import LogoutButton from "@components/LogoutButton";
-import { useEffect } from "react";
 import { useUser } from "@/hooks/useUser";
 
 const schema = z.object({
