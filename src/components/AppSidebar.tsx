@@ -7,7 +7,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@components/ui/sidebar";
-import { Compass, SquareLibrary } from "lucide-react";
+import { CircleUser, Compass, SquareLibrary } from "lucide-react";
 import { NavLink } from "react-router";
 import { cn } from "@lib/utils";
 import type { PropsWithChildren } from "react";
@@ -39,6 +39,14 @@ export default function AppSidebar() {
                 <SidebarLink to="/my-library">
                   <SquareLibrary />
                   <span> My library </span>
+                </SidebarLink>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <SidebarLink to="/profile">
+                  <CircleUser />
+                  <span> Profile </span>
                 </SidebarLink>
               </SidebarMenuButton>
             </SidebarMenuItem>

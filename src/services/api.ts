@@ -2,6 +2,18 @@ import type { Genre, NewStory } from "@T/index";
 import { STORIES } from "@lib/constants";
 import { supabase } from "@lib/supabase/client";
 
+export const getProfileById = async (userId: string) => {
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", userId)
+    .single();
+
+  if (error) throw error;
+
+  return data;
+};
+
 export const getAllStories = async ({ pageParam }: { pageParam: number }) => {
   const from = pageParam * STORIES.PAGE_SIZE;
   const to = from + STORIES.PAGE_SIZE - 1;
@@ -168,6 +180,21 @@ export const deleteStoryById = async (storyId: string) => {
     .delete()
     .eq("id", storyId)
     .single();
+
+  if (error) throw error;
+};
+
+export const updateUsername = async (newUsername: string) => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) throw new Error("Unauthorized");
+
+  const { error } = await supabase
+    .from("profiles")
+    .update({ username: newUsername })
+    .eq("id", user.id);
 
   if (error) throw error;
 };

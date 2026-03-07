@@ -8,6 +8,7 @@ import DiscoverPage from "@pages/DiscoverPage";
 import MyLibraryPage from "@pages/MyLibraryPage";
 import CreateStoryPage from "./pages/CreateStoryPage";
 import WritingSpacePage from "./pages/WritingSpacePage";
+import ProfilePage from "./pages/ProfilePage";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: "/create-story",
         element: <CreateStoryPage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
       },
     ],
   },
