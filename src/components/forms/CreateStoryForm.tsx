@@ -112,7 +112,12 @@ export default function CreateStoryForm() {
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}> Story Title </FieldLabel>
+                <FieldLabel
+                  className="after:text-primary after:content-['*']"
+                  htmlFor={field.name}
+                >
+                  Story Title
+                </FieldLabel>
                 <Input
                   {...field}
                   id={field.name}
@@ -130,7 +135,12 @@ export default function CreateStoryForm() {
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel> Genres </FieldLabel>
+                <FieldLabel
+                  className="after:text-primary after:content-['*']"
+                  htmlFor={field.name}
+                >
+                  Genres
+                </FieldLabel>
                 <ToggleGroup
                   className="flex flex-wrap"
                   type="multiple"
@@ -185,7 +195,12 @@ export default function CreateStoryForm() {
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>Opening Paragraph</FieldLabel>
+                <FieldLabel
+                  className="after:text-primary after:content-['*']"
+                  htmlFor={field.name}
+                >
+                  Opening Paragraph
+                </FieldLabel>
                 <InputGroup>
                   <InputGroupTextarea
                     {...field}
