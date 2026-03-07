@@ -38,6 +38,7 @@ export function DeleteStoryDialog() {
     );
 
     await queryClient.invalidateQueries({ queryKey: ["library"] });
+    await queryClient.invalidateQueries({ queryKey: ["stories"] });
     navigate("/my-library");
   };
 

@@ -7,7 +7,7 @@ export default function Logo() {
     <Link to="/">
       <h1 className="flex items-center justify-start gap-x-2 text-xl">
         <PencilLine color="var(--primary)" />
-        <span className="font-bold"> Collab Write </span>
+        <span className="font-bold"> CrowdTale </span>
       </h1>
     </Link>
   );
