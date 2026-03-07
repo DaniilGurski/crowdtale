@@ -51,7 +51,7 @@ export default function DiscoverPage() {
 
           return (
             <div
-              className="absolute snap-start"
+              className="absolute w-full snap-start"
               key={key}
               style={{
                 height: `${size}px`,
