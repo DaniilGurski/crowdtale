@@ -2,6 +2,8 @@ import { useState } from "react";
 import { cn } from "@lib/utils";
 import { supabase } from "@lib/supabase/client";
 import { Button } from "@components/ui/button";
+import { Input } from "@components/ui/input";
+import { Label } from "@components/ui/label";
 import {
   Card,
   CardContent,
@@ -9,17 +11,43 @@ import {
   CardHeader,
   CardTitle,
 } from "@components/ui/card";
+import { Separator } from "@components/ui/separator";
+import { useNavigate } from "react-router";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSocialLogin = async (e: React.SubmitEvent) => {
+  const navigate = useNavigate();
+
+  const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) throw error;
+
+      navigate("/");
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : "An error occurred");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSocialLogin = async () => {
     setIsLoading(true);
     setError(null);
 
@@ -46,19 +74,51 @@ export function LoginForm({
           <CardDescription>Login to your account to continue</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSocialLogin}>
-            <div className="flex flex-col gap-6">
-              {error && <p className="text-destructive-500 text-sm">{error}</p>}
-              <Button
-                type="submit"
-                className="flex w-full items-center"
-                disabled={isLoading}
-              >
-                <GoogleIcon />
-                {isLoading ? "Logging in..." : "Login with Google"}
-              </Button>
+          <form onSubmit={handleEmailLogin} className="flex flex-col gap-4">
+            {error && <p className="text-destructive text-sm">{error}</p>}
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
             </div>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="Your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <Button className="w-full" disabled={isLoading}>
+              {isLoading ? "Logging in..." : "Login"}
+            </Button>
           </form>
+
+          <div className="my-6 flex items-center gap-4">
+            <Separator className="flex-1" />
+            <span className="text-muted-foreground text-sm">or</span>
+            <Separator className="flex-1" />
+          </div>
+
+          <Button
+            type="button"
+            variant="outline"
+            className="flex w-full items-center"
+            disabled={isLoading}
+            onClick={handleSocialLogin}
+          >
+            <GoogleIcon />
+            Login with Google
+          </Button>
         </CardContent>
       </Card>
     </div>
