@@ -1,6 +1,6 @@
-import { WritingSpaceAction } from "@components/writing-space/WritingSpaceAction";
-import NavigationHeader from "@components/writing-space/NavigationHeader";
-import { WritingTurnsList } from "@components/writing-space/WritingTurnList";
+import WritingSpaceAction from "@components/writing-space/WritingSpaceAction";
+import WritingSpaceHeader from "@components/writing-space/WritingSpaceHeader";
+import WritingTurnsList from "@components/writing-space/WritingTurnList";
 import WritingSpacePageSkeleton from "@components/skeletons/WritingSpacePageSkeleton";
 import { useUser } from "@hooks/useUser";
 import { useTurnsById } from "@hooks/useTurnsById";
@@ -28,7 +28,7 @@ export default function WritingSpacePage() {
 
   return (
     <section className="h-full flex-1 overflow-y-scroll">
-      <NavigationHeader />
+      <WritingSpaceHeader />
 
       <div className="flex h-full flex-col">
         <div className="mx-auto grid w-[90%] max-w-2xl flex-1 content-start gap-y-4">

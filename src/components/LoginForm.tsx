@@ -26,7 +26,7 @@ import { AuthApiError } from "@supabase/supabase-js";
 import { Eye, EyeOff } from "lucide-react";
 import z from "zod";
 
-export const loginSchema = z.object({
+const loginSchema = z.object({
   email: z.email(),
   password: z.string().min(4, { error: "Should be at least 4 chars " }),
 });

@@ -8,7 +8,7 @@ function NavigationHeaderSkeleton() {
         <Skeleton className="h-9 w-9 rounded-md" />
         <div className="space-y-2">
           {/* Title */}
-          <Skeleton className="h-5 w-40" />
+          <Skeleton className="h-5 w-28" />
           {/* Genres */}
           <div className="flex gap-1">
             <Skeleton className="h-4 w-12 rounded-full" />

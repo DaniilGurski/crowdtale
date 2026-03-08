@@ -11,7 +11,7 @@ interface WritingSpaceActionProps {
   status: StoryStatus;
 }
 
-export function WritingSpaceAction({
+export default function WritingSpaceAction({
   userId,
   status,
 }: WritingSpaceActionProps) {
@@ -40,6 +40,10 @@ export function WritingSpaceAction({
     return <WritingForm />;
   }
   if (status === "waiting" && !isParticipant) {
-    return <Button onClick={handleJoin}>Join</Button>;
+    return (
+      <Button className="py-8" onClick={handleJoin}>
+        Join
+      </Button>
+    );
   }
 }
