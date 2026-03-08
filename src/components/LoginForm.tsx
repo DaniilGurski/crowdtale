@@ -57,8 +57,6 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
     email,
     password,
   }) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
     try {
       const { error } = await supabase.auth.signInWithPassword({
         email,
