@@ -41,7 +41,7 @@ export default function DiscoverPage() {
       ref={scrollRef}
     >
       <div
-        className="relative w-full"
+        className="relative"
         style={{ height: `${virtualizer.getTotalSize()}px` }}
       >
         {virtualItems.map(({ index, key, start, size }) => {

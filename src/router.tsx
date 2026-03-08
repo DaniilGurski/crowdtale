@@ -3,12 +3,13 @@ import App from "@/App";
 import GuestRoute from "@components/guards/GuestRoute";
 import PrivateRoute from "@components/guards/PrivateRoute";
 import AuthCallback from "@components/AuthCallback";
-import Login from "@pages/Login";
+import LoginPage from "@/pages/LoginPage";
 import DiscoverPage from "@pages/DiscoverPage";
 import MyLibraryPage from "@pages/MyLibraryPage";
 import CreateStoryPage from "./pages/CreateStoryPage";
 import WritingSpacePage from "./pages/WritingSpacePage";
 import ProfilePage from "./pages/ProfilePage";
+import SignUpPage from "./pages/SignUpPage";
 
 export const router = createBrowserRouter([
   {
@@ -46,7 +47,15 @@ export const router = createBrowserRouter([
     path: "/login",
     element: (
       <GuestRoute>
-        <Login />
+        <LoginPage />
+      </GuestRoute>
+    ),
+  },
+  {
+    path: "/sign-up",
+    element: (
+      <GuestRoute>
+        <SignUpPage />
       </GuestRoute>
     ),
   },
