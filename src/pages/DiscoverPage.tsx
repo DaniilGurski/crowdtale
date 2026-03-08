@@ -41,7 +41,7 @@ export default function DiscoverPage() {
       ref={scrollRef}
     >
       <div
-        className="relative w-full"
+        className="relative"
         style={{ height: `${virtualizer.getTotalSize()}px` }}
       >
         {virtualItems.map(({ index, key, start, size }) => {
@@ -51,7 +51,7 @@ export default function DiscoverPage() {
 
           return (
             <div
-              className="absolute snap-start"
+              className="absolute w-full snap-start"
               key={key}
               style={{
                 height: `${size}px`,

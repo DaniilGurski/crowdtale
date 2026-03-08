@@ -112,17 +112,13 @@ export default function CreateStoryForm() {
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel
-                  className="after:text-primary after:content-['*']"
-                  htmlFor={field.name}
-                >
-                  Story Title
-                </FieldLabel>
+                <FieldLabel htmlFor={field.name}>Story Title</FieldLabel>
                 <Input
                   {...field}
                   id={field.name}
                   aria-invalid={fieldState.invalid}
                   autoComplete="off"
+                  required
                 />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
