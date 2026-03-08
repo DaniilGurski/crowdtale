@@ -77,26 +77,6 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
 
   const handleSocialLogin = async () => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) throw error;
-
-      navigate("/");
-    } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleSocialLogin = async () => {
-    setIsLoading(true);
-    setError(null);
-
-    try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
