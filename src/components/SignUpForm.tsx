@@ -24,7 +24,7 @@ import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Eye, EyeOff } from "lucide-react";
 
-export const signUpSchema = z
+const signUpSchema = z
   .object({
     email: z.email(),
     password: z.string().min(4, { error: "Should be at least 4 chars " }),
