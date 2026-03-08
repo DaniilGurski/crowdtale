@@ -1,12 +1,12 @@
-import { Spinner } from "@components/ui/spinner";
-import { WritingSpaceAction } from "@components/writing-space/WritingSpaceAction";
-import NavigationHeader from "@components/writing-space/NavigationHeader";
+import WritingSpaceAction from "@components/writing-space/WritingSpaceAction";
+import WritingSpaceHeader from "@components/writing-space/WritingSpaceHeader";
+import WritingTurnsList from "@components/writing-space/WritingTurnList";
+import WritingSpacePageSkeleton from "@components/skeletons/WritingSpacePageSkeleton";
 import { useUser } from "@hooks/useUser";
 import { useTurnsById } from "@hooks/useTurnsById";
+import { useIsParticipant } from "@hooks/useIsParticipant";
 import { getNextWriter } from "@lib/utils";
 import { useParams } from "react-router";
-import { useIsParticipant } from "@/hooks/useIsParticipant";
-import { WritingTurnsList } from "@/components/writing-space/WritingTurnList";
 
 // Page where users can view, join, and contribute to the story they are part of
 export default function WritingSpacePage() {
@@ -16,7 +16,7 @@ export default function WritingSpacePage() {
   const { data: isParticipant } = useIsParticipant(storyId, user?.id);
 
   if (isPending) {
-    return <Spinner />;
+    return <WritingSpacePageSkeleton />;
   }
 
   if (error) {
@@ -28,7 +28,7 @@ export default function WritingSpacePage() {
 
   return (
     <section className="h-full flex-1 overflow-y-scroll">
-      <NavigationHeader />
+      <WritingSpaceHeader />
 
       <div className="flex h-full flex-col">
         <div className="mx-auto grid w-[90%] max-w-2xl flex-1 content-start gap-y-4">

@@ -8,7 +8,7 @@ import { capitalize } from "@lib/utils";
 import { useTurnsById } from "@hooks/useTurnsById";
 import { useStoryById } from "@/hooks/useStoryById";
 
-export default function NavigationHeader() {
+export default function WritingSpaceHeader() {
   const { id: storyId } = useParams();
   const { data: story, isPending } = useStoryById(storyId);
   const { refetch } = useTurnsById(storyId);
@@ -23,19 +23,19 @@ export default function NavigationHeader() {
   const { title, story_genres, status } = story!;
 
   return (
-    <header className="bg-card mb-4 flex items-center justify-between rounded-4xl p-4 shadow-sm">
-      <div className="flex items-center gap-x-2">
+    <header className="bg-card mb-4 flex items-center justify-between rounded-b-4xl p-4 shadow-sm">
+      <div className="flex items-center gap-x-1 sm:gap-x-2">
         <Button variant="ghost" onClick={() => navigate(from)}>
           <span className="sr-only"> Go back </span>
           <ChevronLeft />
         </Button>
         <div>
           <h2> {title} </h2>
-          <GenreList storyGenres={story_genres} />
+          <GenreList className="hidden sm:flex" storyGenres={story_genres} />
         </div>
       </div>
 
-      <div className="flex gap-x-2">
+      <div className="flex gap-x-1 sm:gap-x-2">
         {status && <Badge variant="secondary">{capitalize(status)}</Badge>}
         <StorySettingsDialog />
         <Button variant="ghost" onClick={() => refetch()}>

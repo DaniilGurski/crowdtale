@@ -16,6 +16,7 @@ import {
 } from "@components/ui/card";
 import LogoutButton from "@components/LogoutButton";
 import { useUser } from "@/hooks/useUser";
+import NavigationHeader from "@/components/NavigationHeader";
 
 const schema = z.object({
   username: z
@@ -62,62 +63,65 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="mx-auto flex w-[95%] max-w-3xl flex-col gap-y-6 p-6 sm:p-8">
-      <div>
-        <h2 className="text-2xl font-bold">Profile</h2>
-        <p className="text-muted-foreground">Manage your account settings</p>
-      </div>
+    <div className="w-full">
+      <NavigationHeader />
+      <div className="mx-auto flex w-[95%] max-w-3xl flex-col gap-y-6 p-6 sm:p-8">
+        <div>
+          <h2 className="text-2xl font-bold">Profile</h2>
+          <p className="text-muted-foreground">Manage your account settings</p>
+        </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Username</CardTitle>
-          <CardDescription>
-            This is how other users will see you
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-4"
-          >
-            <Controller
-              name="username"
-              control={control}
-              render={({ field, fieldState }) => (
-                <Field>
-                  <FieldLabel htmlFor="username">Username</FieldLabel>
-                  <Input
-                    id="username"
-                    type="text"
-                    placeholder="Enter your username"
-                    {...field}
-                  />
-                  {fieldState.error && (
-                    <FieldError>{fieldState.error.message}</FieldError>
-                  )}
-                </Field>
-              )}
-            />
-            <Button
-              className="justify-self-end"
-              type="submit"
-              disabled={mutation.isPending}
+        <Card>
+          <CardHeader>
+            <CardTitle>Username</CardTitle>
+            <CardDescription>
+              This is how other users will see you
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col gap-4"
             >
-              {mutation.isPending ? "Saving..." : "Save Changes"}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+              <Controller
+                name="username"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <Field>
+                    <FieldLabel htmlFor="username">Username</FieldLabel>
+                    <Input
+                      id="username"
+                      type="text"
+                      placeholder="Enter your username"
+                      {...field}
+                    />
+                    {fieldState.error && (
+                      <FieldError>{fieldState.error.message}</FieldError>
+                    )}
+                  </Field>
+                )}
+              />
+              <Button
+                className="justify-self-end"
+                type="submit"
+                disabled={mutation.isPending}
+              >
+                {mutation.isPending ? "Saving..." : "Save Changes"}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Account</CardTitle>
-          <CardDescription>Sign out of your account</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <LogoutButton />
-        </CardContent>
-      </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Account</CardTitle>
+            <CardDescription>Sign out of your account</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <LogoutButton />
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

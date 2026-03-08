@@ -37,7 +37,7 @@ export default function DiscoverPage() {
 
   return (
     <div
-      className="mx-auto h-screen w-[90%] max-w-xl snap-y snap-mandatory overflow-y-scroll"
+      className="mx-auto h-dvh w-[90%] max-w-xl snap-y snap-mandatory overflow-y-scroll"
       ref={scrollRef}
     >
       <div

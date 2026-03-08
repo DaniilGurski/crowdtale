@@ -1,7 +1,7 @@
 import { WritingTurnBlock } from "@/components/writing-space/WritingTurnBlock";
 import type { Turn, Profile } from "@T/index";
 
-export function WritingTurnsList({
+export default function WritingTurnsList({
   turns,
 }: {
   turns: (Turn & { profiles: Pick<Profile, "username"> | null })[];
