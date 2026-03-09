@@ -1,12 +1,11 @@
 import { Button } from "@components/ui/button";
 import { Badge } from "@components/ui/badge";
-import GenreList from "@components/GenreList";
-import StorySettingsDialog from "@components/writing-space/StorySettingsDialog";
-import { useLocation, useNavigate, useParams } from "react-router";
-import { ChevronLeft, RefreshCcw } from "lucide-react";
+import { Link, useLocation, useNavigate, useParams } from "react-router";
+import { ChevronLeft, RefreshCcw, Settings } from "lucide-react";
 import { capitalize } from "@lib/utils";
 import { useTurnsById } from "@hooks/useTurnsById";
 import { useStoryById } from "@/hooks/useStoryById";
+import GenreList from "@components/GenreList";
 
 export default function WritingSpaceHeader() {
   const { id: storyId } = useParams();
@@ -37,7 +36,14 @@ export default function WritingSpaceHeader() {
 
       <div className="flex gap-x-1 sm:gap-x-2">
         {status && <Badge variant="secondary">{capitalize(status)}</Badge>}
-        <StorySettingsDialog />
+
+        <Button variant="ghost" asChild>
+          <Link to={`/stories/${storyId}/settings`} state={{ from: location }}>
+            <span className="sr-only">Settings</span>
+            <Settings />
+          </Link>
+        </Button>
+
         <Button variant="ghost" onClick={() => refetch()}>
           <span className="sr-only"> Refresh </span>
           <RefreshCcw />

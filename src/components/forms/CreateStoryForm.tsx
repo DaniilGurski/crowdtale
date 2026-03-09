@@ -174,7 +174,10 @@ function OpeningStep() {
       name="openingText"
       control={control}
       render={({ field, fieldState }) => (
-        <Field data-invalid={fieldState.invalid}>
+        <Field
+          className="w-full wrap-anywhere"
+          data-invalid={fieldState.invalid}
+        >
           <FieldLabel
             className="after:text-primary after:content-['*']"
             htmlFor={field.name}
@@ -186,7 +189,7 @@ function OpeningStep() {
               {...field}
               id={field.name}
               rows={6}
-              className="min-h-24 resize-none"
+              className="min-h-24 resize-none wrap-anywhere"
               aria-invalid={fieldState.invalid}
               placeholder="Begin your story..."
             />
