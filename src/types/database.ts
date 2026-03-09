@@ -217,6 +217,10 @@ export type Database = {
         Args: { p_story_id: string; p_user_id: string }
         Returns: undefined
       }
+      update_story_settings: {
+        Args: { p_opening_text: string; p_story_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
       story_status: "waiting" | "active" | "completed"

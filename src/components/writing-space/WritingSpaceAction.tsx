@@ -31,7 +31,7 @@ export default function WritingSpaceAction({
 
   if (status === "waiting" && isParticipant) {
     return (
-      <p className="bg-primary/30 py-4 text-center text-white">
+      <p className="bg-primary/30 w-full py-4 text-center text-white">
         Waiting for more to join...
       </p>
     );
@@ -41,7 +41,7 @@ export default function WritingSpaceAction({
   }
   if (status === "waiting" && !isParticipant) {
     return (
-      <Button className="py-8" onClick={handleJoin}>
+      <Button className="w-full py-8" onClick={handleJoin}>
         Join
       </Button>
     );

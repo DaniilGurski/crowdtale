@@ -29,6 +29,7 @@ export const getAllStories = async ({ pageParam }: { pageParam: number }) => {
       ), story_participants (joined_at, story_id, user_id, profiles (username) )`,
     )
     .eq("is_full", false)
+    .eq("status", "waiting")
     .range(from, to);
 
   if (error) throw error;
@@ -186,6 +187,25 @@ export const deleteStoryById = async (storyId: string) => {
     .single();
 
   if (error) throw error;
+};
+
+export const updateStorySettings = async (
+  storyId: string,
+  openingText: string,
+) => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) throw new Error("Unauthorized");
+
+  const { error } = await supabase.rpc("update_story_settings", {
+    p_story_id: storyId,
+    p_opening_text: openingText,
+  });
+
+  if (error) throw error;
+  console.log("update story settings");
 };
 
 export const updateUsername = async (newUsername: string) => {

@@ -19,7 +19,7 @@ export default function WritingForm() {
 
   return (
     <form
-      className="writing-form-grid bg-card relative justify-items-end rounded-t-4xl shadow-sm"
+      className="writing-form-grid bg-card w-full justify-items-end rounded-t-4xl shadow-sm"
       onSubmit={handleSubmit}
     >
       {/* I am using the standard textarea because I want the form to be styled as the one from Shadcn */}

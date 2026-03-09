@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { getStoryById } from "@services/api";
 
 export const useStoryById = (storyId?: string) => {
@@ -7,5 +7,13 @@ export const useStoryById = (storyId?: string) => {
     queryKey: ["story", storyId],
     staleTime: 0,
     enabled: !!storyId,
+  });
+};
+
+export const useSuspenseStoryById = (storyId?: string) => {
+  return useSuspenseQuery({
+    queryFn: () => getStoryById(storyId!),
+    queryKey: ["story", storyId],
+    staleTime: 0,
   });
 };

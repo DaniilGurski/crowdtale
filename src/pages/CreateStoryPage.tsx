@@ -7,7 +7,7 @@ export default function CreateStoryPage() {
   return (
     <div className="flex w-full flex-col">
       <NavigationHeader />
-      <div className="mx-auto grid w-[90%] items-center gap-y-4">
+      <div className="mx-auto grid h-full w-[90%] items-center gap-y-4">
         <Suspense fallback={<CreateStoryFormSkeleton />}>
           <CreateStoryForm />
         </Suspense>
