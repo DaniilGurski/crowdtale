@@ -1,73 +1,52 @@
-# React + TypeScript + Vite
+# Crowdtale ✒️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+_Find someone. Start a story. See where it goes._
 
-Currently, two official plugins are available:
+Crowdtale is an app for collaborative storytelling. You open the feed, find a story opening you like, join it, and continue the story together with other writers, taking turns.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Instead of staring at a blank page, writing becomes a shared process. One person starts a story, someone else continues it, and the narrative slowly grows piece by piece.
 
-## React Compiler
+The app keeps things fair with a turn-based system and deadlines, so stories don’t get abandoned halfway through.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+### Genre-based feed
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Browse story openings by genre and join the ones that match your interests.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Turn-based writing
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Each participant writes one turn at a time, so everyone gets a chance to shape the story.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Automatic story completion
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+If someone misses their deadline, the system automatically wraps up the story so it doesn’t stay unfinished forever.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Tech stack:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- React + TypeScript
+
+- TailwindCSS
+
+- shadcn/ui
+
+- TanStack Query + TanStack Virtual
+
+- Supabase
+
+- PostgreSQL
+
+## Backend Design
+
+The database is designed with relational structure in mind rather than a simple document-style schema.
+
+### Key ideas:
+
+- relational data model for users, stories, and turns
+- PostgreSQL functions and triggers for enforcing turn order
+- automated story completion using scheduled jobs
+- server-side logic handled directly in the database where appropriate
+
+### Database Schema
+
+![](./assets/database-schema.svg)
