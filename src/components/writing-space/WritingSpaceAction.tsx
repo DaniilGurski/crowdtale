@@ -41,7 +41,7 @@ export default function WritingSpaceAction({
   }
   if (status === "waiting" && !isParticipant) {
     return (
-      <Button className="w-full py-8" onClick={handleJoin}>
+      <Button className="w-full py-6" onClick={handleJoin}>
         Join
       </Button>
     );
