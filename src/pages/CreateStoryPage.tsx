@@ -1,5 +1,5 @@
-import CreateStoryForm from "@/components/forms/CreateStoryForm";
-import NavigationHeader from "@/components/NavigationHeader";
+import CreateStoryForm from "@components/forms/CreateStoryForm";
+import NavigationHeader from "@components/NavigationHeader";
 import CreateStoryFormSkeleton from "@components/skeletons/CreateStoryFormSkeleton";
 import { Suspense } from "react";
 

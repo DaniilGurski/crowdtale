@@ -3,7 +3,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
-import { getProfileById, updateUsername, deleteUser } from "@/services/api";
+import { getProfileById, updateUsername, deleteUser } from "@services/api";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { Field, FieldError, FieldLabel } from "@components/ui/field";

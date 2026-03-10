@@ -8,9 +8,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { deleteParticipantById } from "@/services/api";
+} from "@components/ui/alert-dialog";
+import { Button } from "@components/ui/button";
+import { deleteParticipantById } from "@services/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router";
 

@@ -37,10 +37,10 @@ import { KickParticipantDialog } from "@components/writing-space/KickParticipant
 import { DeleteStoryDialog } from "@components/writing-space/DeleteStoryDialog";
 import { LeaveStoryDialog } from "@components/writing-space/LeaveStoryDialog";
 import { useUser } from "@hooks/useUser";
+import { useIsParticipant } from "@hooks/useIsParticipant";
 import { useStoryById, useSuspenseStoryById } from "@hooks/useStoryById";
 import { updateStorySettings } from "@services/api";
-import { formatDate } from "@/lib/utils";
-import { useIsParticipant } from "@/hooks/useIsParticipant";
+import { formatDate } from "@lib/utils";
 
 const openingTextSchema = z.object({
   openingText: z

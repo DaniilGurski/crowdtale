@@ -1,8 +1,8 @@
 import LibraryStoryItem from "@components/my-library/LibraryStoryItem";
 import LibraryListSkeleton from "@components/skeletons/LibraryListSkeleton";
 import { TabsContent } from "@components/ui/tabs";
+import LibraryListEmpty from "@components/my-library/LibraryListEmpty";
 import { useLibrary } from "@hooks/useLibrary";
-import LibraryListEmpty from "./LibraryListEmpty";
 
 export default function LibraryList() {
   const { data: stories, isPending, error } = useLibrary();

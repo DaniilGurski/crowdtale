@@ -1,5 +1,4 @@
 import { useState, type MouseEvent } from "react";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import {
@@ -14,7 +13,7 @@ import { useNavigate } from "react-router";
 import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { z } from "zod";
 
-import { DatePicker } from "@/components/DatePicker";
+import { DatePicker } from "@components/DatePicker";
 import { Badge } from "@components/ui/badge";
 import { Button } from "@components/ui/button";
 import {

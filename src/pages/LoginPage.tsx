@@ -1,9 +1,9 @@
-import { LoginForm } from "@/components/LoginForm";
+import { LoginForm } from "@components/LoginForm";
 
 export default function LoginPage() {
-    return (
-        <main className="grid h-screen place-items-center">
-            <LoginForm className="w-[90%] max-w-xl" />
-        </main>
-    );
+  return (
+    <main className="grid h-screen place-items-center">
+      <LoginForm className="w-[90%] max-w-xl" />
+    </main>
+  );
 }

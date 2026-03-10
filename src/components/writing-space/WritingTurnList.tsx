@@ -1,4 +1,4 @@
-import { WritingTurnBlock } from "@/components/writing-space/WritingTurnBlock";
+import { WritingTurnBlock } from "@components/writing-space/WritingTurnBlock";
 import type { Turn, Profile } from "@T/index";
 
 export default function WritingTurnsList({

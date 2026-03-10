@@ -1,3 +1,7 @@
+import { Link, useNavigate } from "react-router";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm, type SubmitHandler } from "react-hook-form";
+import toast from "react-hot-toast";
 import { useState, type ComponentPropsWithRef } from "react";
 import { cn } from "@lib/utils";
 import { supabase } from "@lib/supabase/client";
@@ -18,10 +22,6 @@ import {
 } from "@components/ui/card";
 import { Separator } from "@components/ui/separator";
 import { Field, FieldError, FieldLabel } from "@components/ui/field";
-import { Link, useNavigate } from "react-router";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm, type SubmitHandler } from "react-hook-form";
-import toast from "react-hot-toast";
 import { AuthApiError } from "@supabase/supabase-js";
 import { Eye, EyeOff } from "lucide-react";
 import z from "zod";

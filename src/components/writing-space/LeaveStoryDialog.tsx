@@ -8,10 +8,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { useUser } from "@/hooks/useUser";
-import { deleteParticipantById } from "@/services/api";
+} from "@components/ui/alert-dialog";
+import { Button } from "@components/ui/button";
+import { useUser } from "@hooks/useUser";
+import { deleteParticipantById } from "@services/api";
 import { useNavigate, useParams } from "react-router";
 
 export function LeaveStoryDialog() {

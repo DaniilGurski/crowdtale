@@ -5,11 +5,11 @@ import PrivateRoute from "@components/guards/PrivateRoute";
 import AuthCallback from "@components/AuthCallback";
 import WritingSpaceMain from "@components/writing-space/WritingSpaceMain";
 import WritingSpaceSettings from "@components/writing-space/WritingSpaceSettings";
-import LoginPage from "@/pages/LoginPage";
+import LoginPage from "@pages/LoginPage";
 import DiscoverPage from "@pages/DiscoverPage";
 import MyLibraryPage from "@pages/MyLibraryPage";
-import CreateStoryPage from "./pages/CreateStoryPage";
-import WritingSpacePage from "./pages/WritingSpacePage";
+import CreateStoryPage from "@pages/CreateStoryPage";
+import WritingSpacePage from "@pages/WritingSpacePage";
 import ProfilePage from "@pages/ProfilePage";
 import SignUpPage from "@pages/SignUpPage";
 
