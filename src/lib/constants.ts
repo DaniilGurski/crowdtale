@@ -1,3 +1,7 @@
+export const DISCOVER_PAGE = {
+  HEADER_HEIGHT: 56,
+};
+
 export const STORIES = {
   PAGE_SIZE: 5,
 };
