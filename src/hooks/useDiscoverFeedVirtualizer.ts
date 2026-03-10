@@ -7,6 +7,7 @@ export const useDiscoverFeedVirtualizer = (
   scrollRef: RefObject<HTMLDivElement | null>,
   stories: Story[],
   isFetchingNextPage: boolean,
+  headerHeight: number = 0,
 ) => {
   const skeletonCount = isFetchingNextPage
     ? VIRTUALIZATION.SKELETON_COUNT_FETCHING
@@ -15,7 +16,7 @@ export const useDiscoverFeedVirtualizer = (
   const virtualizer = useVirtualizer({
     count: stories.length + skeletonCount,
     getScrollElement: () => scrollRef.current,
-    estimateSize: () => window.innerHeight,
+    estimateSize: () => window.innerHeight - headerHeight,
   });
   const virtualItems = virtualizer.getVirtualItems();
 
