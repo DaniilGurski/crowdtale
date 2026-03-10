@@ -4,6 +4,14 @@ _Find someone. Start a story. See where it goes._
 
 Crowdtale is an app for collaborative storytelling. You open the feed, find a story opening you like, join it, and continue the story together with other writers, taking turns.Instead of staring at a blank page, writing becomes a shared process. One person starts a story, someone else continues it, and the narrative slowly grows piece by piece. The app keeps things fair with a turn-based system and deadlines, so stories don’t get abandoned halfway through.
 
+## Screenshots
+
+<div style="display:flex; column-gap: 1rem;">
+  <img src="./assets/screenshots/discover-feed.png" width="300" style="border-radius:8px;">
+  <img src="./assets/screenshots/writing-space.png" width="300" style="border-radius:8px;">
+  <img src="./assets/screenshots/create-story.png" width="300" style="border-radius:8px;">
+</div>
+
 ## Features
 
 ### Genre-based feed
@@ -45,7 +53,9 @@ The database is designed with relational structure in mind rather than a simple 
 
 ### Database Schema
 
-![](./assets/database-schema.svg)
+<div style="display:flex; justify-content: center;">
+<img src="./assets/database-schema.svg" width="700" style="border-radius:8px;">
+</div>
 
 ## Future Plans
 
