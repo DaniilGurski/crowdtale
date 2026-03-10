@@ -205,7 +205,6 @@ export const updateStorySettings = async (
   });
 
   if (error) throw error;
-  console.log("update story settings");
 };
 
 export const updateUsername = async (newUsername: string) => {
@@ -221,4 +220,18 @@ export const updateUsername = async (newUsername: string) => {
     .eq("id", user.id);
 
   if (error) throw error;
+};
+
+export const deleteUser = async () => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) throw new Error("Unauthorized");
+
+  const { error } = await supabase.rpc("delete_user");
+
+  if (error) throw error;
+
+  await supabase.auth.signOut();
 };

@@ -213,6 +213,7 @@ export type Database = {
         Args: { p_content: string; p_story_id: string; p_user_id: string }
         Returns: undefined
       }
+      delete_user: { Args: never; Returns: undefined }
       join_story: {
         Args: { p_story_id: string; p_user_id: string }
         Returns: undefined

@@ -3,7 +3,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
-import { getProfileById, updateUsername } from "@/services/api";
+import { getProfileById, updateUsername, deleteUser } from "@/services/api";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { Field, FieldError, FieldLabel } from "@components/ui/field";
@@ -14,9 +14,21 @@ import {
   CardHeader,
   CardTitle,
 } from "@components/ui/card";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@components/ui/alert-dialog";
 import LogoutButton from "@components/LogoutButton";
-import { useUser } from "@/hooks/useUser";
-import NavigationHeader from "@/components/NavigationHeader";
+import NavigationHeader from "@components/NavigationHeader";
+import { useUser } from "@hooks/useUser";
+import { useNavigate } from "react-router";
 
 const schema = z.object({
   username: z
@@ -40,6 +52,8 @@ export default function ProfilePage() {
     enabled: !!user,
   });
 
+  const navigate = useNavigate();
+
   const { handleSubmit, control } = useForm<ProfileFormFields>({
     resolver: zodResolver(schema),
     values: {
@@ -60,6 +74,13 @@ export default function ProfilePage() {
 
   const onSubmit: SubmitHandler<ProfileFormFields> = ({ username }) => {
     mutation.mutate(username);
+  };
+
+  const handleDeleteUser = async () => {
+    if (!user) return;
+
+    await deleteUser();
+    navigate("/login");
   };
 
   return (
@@ -119,6 +140,40 @@ export default function ProfilePage() {
           </CardHeader>
           <CardContent>
             <LogoutButton />
+          </CardContent>
+        </Card>
+
+        <Card className="border-destructive">
+          <CardHeader>
+            <CardTitle className="text-destructive">Danger Zone</CardTitle>
+            <CardDescription>
+              Permanently delete your account and all associated data
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="destructive">Delete Account</Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    your account.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    variant="destructive"
+                    onClick={handleDeleteUser}
+                  >
+                    Delete Account
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </CardContent>
         </Card>
       </div>
