@@ -6,7 +6,7 @@ Crowdtale is an app for collaborative storytelling. You open the feed, find a st
 
 ## Screenshots
 
-<div style="display:flex; column-gap: 1rem;">
+<div style="display:grid;">
   <img src="./assets/screenshots/discover-feed.png" width="300" style="border-radius:8px;">
   <img src="./assets/screenshots/writing-space.png" width="300" style="border-radius:8px;">
   <img src="./assets/screenshots/create-story.png" width="300" style="border-radius:8px;">
