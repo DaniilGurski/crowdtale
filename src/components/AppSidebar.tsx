@@ -7,11 +7,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@components/ui/sidebar";
-import { CircleUser, Compass, SquareLibrary } from "lucide-react";
-import { NavLink } from "react-router";
+import Logo from "@components/Logo";
 import { cn } from "@lib/utils";
 import type { PropsWithChildren } from "react";
-import Logo from "./Logo";
+import { CircleUser, Compass, SquareLibrary } from "lucide-react";
+import { NavLink } from "react-router";
 
 interface SidebarLinkProps extends PropsWithChildren {
   to: string;

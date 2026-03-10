@@ -1,11 +1,11 @@
 import { Button } from "@components/ui/button";
 import { Badge } from "@components/ui/badge";
-import { Link, useLocation, useNavigate, useParams } from "react-router";
-import { ChevronLeft, RefreshCcw, Settings } from "lucide-react";
+import GenreList from "@components/GenreList";
 import { capitalize } from "@lib/utils";
 import { useTurnsById } from "@hooks/useTurnsById";
-import { useStoryById } from "@/hooks/useStoryById";
-import GenreList from "@components/GenreList";
+import { useStoryById } from "@hooks/useStoryById";
+import { Link, useLocation, useNavigate, useParams } from "react-router";
+import { ChevronLeft, RefreshCcw, Settings } from "lucide-react";
 
 export default function WritingSpaceHeader() {
   const { id: storyId } = useParams();

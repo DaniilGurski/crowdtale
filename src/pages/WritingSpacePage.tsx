@@ -1,4 +1,4 @@
-import WritingSpacePageSkeleton from "@/components/skeletons/WritingSpacePageSkeleton";
+import WritingSpacePageSkeleton from "@components/skeletons/WritingSpacePageSkeleton";
 import WritingSpaceHeader from "@components/writing-space/WritingSpaceHeader";
 import { Suspense } from "react";
 import { Outlet } from "react-router";

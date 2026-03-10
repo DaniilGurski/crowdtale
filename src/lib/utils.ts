@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import type { StoryWithTurns, StoryParticipantWithProfiles } from "@/types";
+import type { StoryWithTurns, StoryParticipantWithProfiles } from "@T/index";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

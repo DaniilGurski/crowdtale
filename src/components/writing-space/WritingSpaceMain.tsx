@@ -1,10 +1,10 @@
 import WritingTurnsList from "@components/writing-space/WritingTurnList";
 import WritingSpaceAction from "@components/writing-space/WritingSpaceAction";
-import { useIsParticipant } from "@/hooks/useIsParticipant";
-import { useSuspenseTurnsById } from "@/hooks/useTurnsById";
-import { useUser } from "@/hooks/useUser";
+import { useIsParticipant } from "@hooks/useIsParticipant";
+import { useSuspenseTurnsById } from "@hooks/useTurnsById";
+import { useUser } from "@hooks/useUser";
+import { getNextWriter } from "@lib/utils";
 import { useParams } from "react-router";
-import { getNextWriter } from "@/lib/utils";
 
 export default function WritingSpaceMain() {
   const { user } = useUser();

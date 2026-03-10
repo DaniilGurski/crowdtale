@@ -1,16 +1,16 @@
 import { useInView } from "react-intersection-observer";
 import { useEffect, useRef } from "react";
-import { DISCOVER_PAGE, VIRTUALIZATION } from "@lib/constants";
-import { useDiscoverFeed } from "@hooks/useDiscoverFeed";
-import { useDiscoverFeedVirtualizer } from "@hooks/useDiscoverFeedVirtualizer";
 import DiscoverFeedEmpty from "@components/discover-feed/DiscoverFeedEmpty";
 import DiscoverFeedLoading from "@components/discover-feed/DiscoverFeedLoading";
 import DiscoverFeedError from "@components/discover-feed/DiscoverFeedError";
 import StoryCard from "@components/discover-feed/StoryCard";
 import StoryCardSkeleton from "@components/skeletons/StoryCardSkeleton";
 import DiscoverFeedHeader from "@components/discover-feed/DiscoverFeedHeader";
-import { useAtomValue } from "jotai";
+import { useDiscoverFeed } from "@hooks/useDiscoverFeed";
+import { useDiscoverFeedVirtualizer } from "@hooks/useDiscoverFeedVirtualizer";
 import { selectedGenresAtom } from "@lib/atoms";
+import { DISCOVER_PAGE, VIRTUALIZATION } from "@lib/constants";
+import { useAtomValue } from "jotai";
 
 export default function DiscoverPage() {
   const scrollRef = useRef<HTMLDivElement | null>(null);

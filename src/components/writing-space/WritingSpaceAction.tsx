@@ -1,8 +1,8 @@
 import type { StoryStatus } from "@T/index";
 import { useIsParticipant } from "@hooks/useIsParticipant";
 import { Button } from "@components/ui/button";
-import WritingForm from "./WritingForm";
-import { joinStory } from "@/services/api";
+import WritingForm from "@components/forms/WritingForm";
+import { joinStory } from "@services/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router";
 

@@ -2,9 +2,9 @@ import { Card, CardFooter, CardHeader, CardTitle } from "@components/ui/card";
 import { Button } from "@components/ui/button";
 import GenreList from "@components/GenreList";
 import { getRelativeTime } from "@lib/utils";
+import { useStoryById } from "@hooks/useStoryById";
 import { Clock, PenIcon } from "lucide-react";
 import { Link, useLocation } from "react-router";
-import { useStoryById } from "@/hooks/useStoryById";
 
 interface LibraryStoryItemProps {
   storyId: string;

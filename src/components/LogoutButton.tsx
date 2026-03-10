@@ -1,8 +1,8 @@
-import { supabase } from "@/lib/supabase/client";
-import { Button } from "./ui/button";
 import { useSetAtom } from "jotai";
-import { userAtom } from "@/lib/atoms";
 import { useNavigate } from "react-router";
+import { supabase } from "@lib/supabase/client";
+import { Button } from "@components/ui/button";
+import { userAtom } from "@lib/atoms";
 
 export default function LogoutButton() {
   const setUser = useSetAtom(userAtom);

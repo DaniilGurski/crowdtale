@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { isStoryParticipant } from "@/services/api";
+import { isStoryParticipant } from "@services/api";
 
 export const useIsParticipant = (storyId?: string, userId?: string) => {
   return useQuery({

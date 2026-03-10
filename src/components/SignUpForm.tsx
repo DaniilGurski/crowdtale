@@ -1,3 +1,10 @@
+import { Link, useNavigate } from "react-router";
+import { zodResolver } from "@hookform/resolvers/zod";
+import z from "zod";
+import { Controller, useForm, type SubmitHandler } from "react-hook-form";
+import toast from "react-hot-toast";
+import { Eye, EyeOff } from "lucide-react";
+
 import { useState, type ComponentPropsWithRef } from "react";
 import { cn } from "@lib/utils";
 import { supabase } from "@lib/supabase/client";
@@ -17,12 +24,6 @@ import {
   CardTitle,
 } from "@components/ui/card";
 import { Field, FieldError, FieldLabel } from "@components/ui/field";
-import { Link, useNavigate } from "react-router";
-import { zodResolver } from "@hookform/resolvers/zod";
-import z from "zod";
-import { Controller, useForm, type SubmitHandler } from "react-hook-form";
-import toast from "react-hot-toast";
-import { Eye, EyeOff } from "lucide-react";
 
 const signUpSchema = z
   .object({

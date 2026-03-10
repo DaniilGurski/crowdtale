@@ -6,8 +6,8 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@components/ui/empty";
-import { Compass } from "lucide-react";
 import { Button } from "@components/ui/button";
+import { Compass } from "lucide-react";
 import { Link } from "react-router";
 
 export default function DiscoverFeedEmpty() {
