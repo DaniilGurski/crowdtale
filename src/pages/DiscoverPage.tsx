@@ -11,6 +11,7 @@ import { useDiscoverFeedVirtualizer } from "@hooks/useDiscoverFeedVirtualizer";
 import { selectedGenresAtom } from "@lib/atoms";
 import { DISCOVER_PAGE, VIRTUALIZATION } from "@lib/constants";
 import { useAtomValue } from "jotai";
+import { useRealtimeDiscoverFeed } from "@/hooks/useRealtimeDiscoverFeed";
 
 export default function DiscoverPage() {
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -38,6 +39,8 @@ export default function DiscoverPage() {
     isFetchingNextPage,
     DISCOVER_PAGE.HEADER_HEIGHT,
   );
+
+  useRealtimeDiscoverFeed();
 
   useEffect(() => {
     if (inView) fetchNextPage();

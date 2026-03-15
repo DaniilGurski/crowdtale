@@ -5,49 +5,15 @@ import { useSuspenseTurnsById } from "@hooks/useTurnsById";
 import { useUser } from "@hooks/useUser";
 import { getNextWriter } from "@lib/utils";
 import { useParams } from "react-router";
-import { useEffect } from "react";
-import { supabase } from "@/lib/supabase/client";
-import { useQueryClient } from "@tanstack/react-query";
-import type { RealtimeChannel } from "@supabase/supabase-js";
+import { useRealtimeWritingSpace } from "@/hooks/useRealtimeWritingSpace";
 
 export default function WritingSpaceMain() {
   const { user } = useUser();
   const { id: storyId } = useParams();
   const { data: isParticipant } = useIsParticipant(storyId, user?.id);
   const { data: story, error } = useSuspenseTurnsById(storyId);
-  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    let channel: RealtimeChannel;
-
-    const initRealtime = async () => {
-      await supabase.realtime.setAuth();
-
-      channel = supabase
-        .channel(`topic:${story.id}`, {
-          config: { private: true },
-        })
-        .on("broadcast", { event: "INSERT" }, (payload) => {
-          console.log("New turn received:", payload);
-          queryClient.invalidateQueries({ queryKey: ["turns", story.id] });
-        })
-        .on("broadcast", { event: "UPDATE" }, (payload) => {
-          console.log("Story updated:", payload);
-          queryClient.invalidateQueries({ queryKey: ["turns", story.id] });
-          queryClient.invalidateQueries({ queryKey: ["story", story.id] });
-        })
-        .subscribe((status) => {
-          if (status === "SUBSCRIBED")
-            console.log("Listening for story beats...");
-        });
-    };
-
-    initRealtime();
-
-    return () => {
-      if (channel) supabase.removeChannel(channel);
-    };
-  }, [story.id, queryClient]);
+  useRealtimeWritingSpace(story.id);
 
   if (error) {
     return <p> {error.message} </p>;
