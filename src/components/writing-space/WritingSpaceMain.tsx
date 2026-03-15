@@ -5,12 +5,15 @@ import { useSuspenseTurnsById } from "@hooks/useTurnsById";
 import { useUser } from "@hooks/useUser";
 import { getNextWriter } from "@lib/utils";
 import { useParams } from "react-router";
+import { useRealtimeWritingSpace } from "@/hooks/useRealtimeWritingSpace";
 
 export default function WritingSpaceMain() {
   const { user } = useUser();
   const { id: storyId } = useParams();
   const { data: isParticipant } = useIsParticipant(storyId, user?.id);
   const { data: story, error } = useSuspenseTurnsById(storyId);
+
+  useRealtimeWritingSpace(story.id);
 
   if (error) {
     return <p> {error.message} </p>;

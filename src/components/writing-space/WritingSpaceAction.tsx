@@ -29,6 +29,10 @@ export default function WritingSpaceAction({
     });
   };
 
+  if (status === "completed") {
+    return null;
+  }
+
   if (status === "waiting" && isParticipant) {
     return (
       <p className="bg-primary/30 w-full py-4 text-center text-white">
