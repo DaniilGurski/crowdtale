@@ -16,7 +16,7 @@ export const useRealtimeDiscoverFeed = () => {
         .channel(`topic:discover`, {
           config: { private: true },
         })
-        .on("broadcast", { event: "INSERT" }, (_payload) => {
+        .on("broadcast", { event: "INSERT" }, () => {
           queryClient.invalidateQueries({ queryKey: ["stories"] });
         })
         .subscribe();

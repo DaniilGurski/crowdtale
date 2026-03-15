@@ -16,10 +16,10 @@ export const useRealtimeWritingSpace = (storyId: string) => {
         .channel(`topic:${storyId}`, {
           config: { private: true },
         })
-        .on("broadcast", { event: "INSERT" }, (_payload) => {
+        .on("broadcast", { event: "INSERT" }, () => {
           queryClient.invalidateQueries({ queryKey: ["turns", storyId] });
         })
-        .on("broadcast", { event: "UPDATE" }, (_payload) => {
+        .on("broadcast", { event: "UPDATE" }, () => {
           queryClient.invalidateQueries({ queryKey: ["turns", storyId] });
           queryClient.invalidateQueries({ queryKey: ["story", storyId] });
         })
