@@ -57,21 +57,3 @@ The database is designed with relational structure in mind rather than a simple 
 <div style="display:flex; justify-content: center;">
 <img src="./assets/database-schema.svg" width="700" style="border-radius:8px;">
 </div>
-
-## Future Plans
-
-### Realtime updates
-
-Live updates for turns and story activity so participants can see new additions immediately without refreshing the page.
-
-### Friends system
-
-Ability to add friends and easily start stories with people you already enjoy writing with.
-
-### Media tools for collaboration
-
-Support for richer communication during stories, such as sharing images or using a small collaborative drawing canvas.
-
-### More story settings
-
-Additional options for story creation, such as participant limits, custom deadlines, and more control over how turns are handled.
