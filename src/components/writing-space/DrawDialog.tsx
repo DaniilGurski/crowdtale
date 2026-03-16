@@ -14,18 +14,18 @@ import {
   ReactSketchCanvas,
   type ReactSketchCanvasRef,
 } from "react-sketch-canvas";
-import { type ChangeEvent, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Slider } from "@components/ui/slider";
-import { HexColorPicker } from "react-colorful";
+import { Input } from "@components/ui/input";
+import { EraserIcon, Pen, Redo, Undo, X } from "lucide-react";
 
 export default function DrawDialog() {
   const canvasRef = useRef<ReactSketchCanvasRef>(null);
   const [isEraserMode, setIsEraserMode] = useState(false);
-  const [isStrokeColorMode, setIsStrokeColorMode] = useState(false);
   const [strokeWidth, setStrokeWidth] = useState(12);
   const [eraserWidth, setEraserWidth] = useState(12);
-  const [strokeColor, setStrokeColor] = useState("");
-  const [canvasColor, setCanvasColor] = useState("");
+  const [strokeColor, setStrokeColor] = useState("#000000");
+  const [canvasColor, setCanvasColor] = useState("#ffffff");
 
   const handlePenClick = () => {
     setIsEraserMode(false);
@@ -35,14 +35,6 @@ export default function DrawDialog() {
   const handleEraserClick = () => {
     setIsEraserMode(true);
     canvasRef.current?.eraseMode(true);
-  };
-
-  const handleColorChange = (newColor: string) => {
-    if (isStrokeColorMode) {
-      setStrokeColor(newColor);
-    } else {
-      setCanvasColor(newColor);
-    }
   };
 
   return (
@@ -59,7 +51,7 @@ export default function DrawDialog() {
             Draw a picture for your part of the story
           </DialogDescription>
         </DialogHeader>
-        <div className="grid">
+        <div className="grid gap-y-4">
           <ReactSketchCanvas
             ref={canvasRef}
             strokeWidth={strokeWidth}
@@ -68,92 +60,80 @@ export default function DrawDialog() {
             canvasColor={canvasColor}
             height="300px"
           />
-          <div className="flex flex-wrap gap-2">
-            {/* Should this be a list ? */}
-            <div className="flex">
+          <div className="grid gap-y-4">
+            <Slider
+              defaultValue={[strokeWidth]}
+              max={20}
+              step={1}
+              className="w-full"
+              onValueChange={(value) => setStrokeWidth(value[0])}
+              disabled={isEraserMode}
+              aria-label="canvas stroke width"
+            />
+
+            <Slider
+              defaultValue={[eraserWidth]}
+              max={20}
+              step={1}
+              className="w-full"
+              onValueChange={(value) => setEraserWidth(value[0])}
+              disabled={!isEraserMode}
+              aria-label="canvas eraser width"
+            />
+
+            <div className="grid grid-cols-5">
               <Button
                 variant="outline"
                 onClick={handlePenClick}
                 disabled={!isEraserMode}
               >
-                Pen
+                <span className="sr-only"> Toggle pen mode </span>
+                <Pen />
               </Button>
               <Button
                 variant="outline"
                 onClick={handleEraserClick}
                 disabled={isEraserMode}
               >
-                Eraser
+                <span className="sr-only"> Toggle eraser mode </span>
+                <EraserIcon />
               </Button>
-            </div>
-
-            <div className="flex">
-              {/* TODO: Add proper label for accessibility */}
-              <div>
-                Stroke Width
-                <Slider
-                  defaultValue={[strokeWidth]}
-                  max={20}
-                  step={1}
-                  className="w-full max-w-xs"
-                  onValueChange={(value) => setStrokeWidth(value[0])}
-                  disabled={isEraserMode}
-                />
-              </div>
-
-              {/* TODO: Add proper label for accessibility */}
-              <div>
-                Eraser Width
-                <Slider
-                  defaultValue={[eraserWidth]}
-                  max={20}
-                  step={1}
-                  className="w-full max-w-xs"
-                  onValueChange={(value) => setEraserWidth(value[0])}
-                  disabled={!isEraserMode}
-                />
-              </div>
-            </div>
-
-            <div className="flex">
-              <Button
-                variant="outline"
-                onClick={() => setIsStrokeColorMode(true)}
-                disabled={isStrokeColorMode}
-              >
-                Stroke Color
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => setIsStrokeColorMode(false)}
-                disabled={!isStrokeColorMode}
-              >
-                Canvas Color
-              </Button>
-            </div>
-
-            {/* If it becomes hard to fit everything, it might be better to use vanilla color pickers */}
-            <HexColorPicker onChange={handleColorChange} />
-
-            <div>
               <Button
                 variant="outline"
                 onClick={() => canvasRef.current?.undo()}
               >
-                Undo
+                <span className="sr-only"> Undo </span>
+                <Undo />
               </Button>
               <Button
                 variant="outline"
                 onClick={() => canvasRef.current?.redo()}
               >
-                Redo
+                <span className="sr-only">Redo</span>
+                <Redo />
               </Button>
               <Button
                 variant="outline"
                 onClick={() => canvasRef.current?.clearCanvas()}
               >
-                Clear
+                <span className="sr-only"> Clear canvas </span>
+                <X />
               </Button>
+            </div>
+
+            <div>
+              <Input
+                type="color"
+                value={strokeColor}
+                onChange={(e) => setStrokeColor(e.target.value)}
+                aria-label="canvas stroke color"
+              ></Input>
+              <Input
+                type="color"
+                value={canvasColor}
+                onChange={(e) => setCanvasColor(e.target.value)}
+                aria-label="canvas color"
+              ></Input>
             </div>
           </div>
         </div>
@@ -161,7 +141,7 @@ export default function DrawDialog() {
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <Button type="submit">Save changes</Button>
+          <Button type="submit">Attach</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
