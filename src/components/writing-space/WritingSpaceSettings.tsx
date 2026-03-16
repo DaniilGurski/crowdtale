@@ -50,7 +50,7 @@ const openingTextSchema = z.object({
 
 type OpeningTextFormFields = z.infer<typeof openingTextSchema>;
 
-function OpeningTextForm({ defaultValue }: { defaultValue: string }) {
+function OpeningTextForm({ defaultOpening }: { defaultOpening: string }) {
   const { id: storyId } = useParams();
   const queryClient = useQueryClient();
 
@@ -61,7 +61,7 @@ function OpeningTextForm({ defaultValue }: { defaultValue: string }) {
   } = useForm<OpeningTextFormFields>({
     resolver: zodResolver(openingTextSchema),
     defaultValues: {
-      openingText: defaultValue,
+      openingText: defaultOpening,
     },
   });
 
@@ -138,6 +138,18 @@ function OpeningTextForm({ defaultValue }: { defaultValue: string }) {
           </Button>
         </CardFooter>
       </form>
+    </Card>
+  );
+}
+
+function OpeningTextSection({ opening }: { opening: string }) {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Opening Text</CardTitle>
+      </CardHeader>
+
+      <CardContent>{opening}</CardContent>
     </Card>
   );
 }
@@ -261,9 +273,10 @@ export default function WritingSpaceSettings() {
         </p>
       </div>
 
-      {/* TODO: In the future, check if there is only one turn, not the status */}
-      {isCreator && story.status === "waiting" && (
-        <OpeningTextForm defaultValue={story.opening_text} />
+      {isCreator && story.turns.length <= 1 ? (
+        <OpeningTextForm defaultOpening={story.opening_text} />
+      ) : (
+        <OpeningTextSection opening={story.opening_text} />
       )}
 
       <ParticipantsSection />

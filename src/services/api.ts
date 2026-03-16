@@ -45,7 +45,7 @@ export const getStoryById = async (storyId: string) => {
           id,
           name
         )
-      ), story_participants (joined_at, story_id, user_id, profiles (username))`,
+      ), story_participants (joined_at, story_id, user_id, profiles (username)), turns (turn_order)`,
     )
     .eq("id", storyId)
     .single();
