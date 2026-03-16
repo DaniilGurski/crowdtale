@@ -1,3 +1,4 @@
+import DrawDialog from "@components/writing-space/DrawDialog";
 import { Button } from "@components/ui/button";
 import { useTurnsById } from "@hooks/useTurnsById";
 import { useUser } from "@hooks/useUser";
@@ -30,13 +31,17 @@ export default function WritingForm() {
         onChange={(e) => setUserInput(e.target.value)}
       />
 
-      <Button
-        type="submit"
-        className="m-2 px-12"
-        disabled={user.id !== nextWriter.user_id}
-      >
-        Send
-      </Button>
+      <div className="flex">
+        <DrawDialog />
+
+        <Button
+          type="submit"
+          className="m-2 px-12"
+          disabled={user.id !== nextWriter.user_id}
+        >
+          Send
+        </Button>
+      </div>
     </form>
   );
 }
