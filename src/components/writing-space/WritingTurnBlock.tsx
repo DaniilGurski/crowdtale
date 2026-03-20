@@ -21,7 +21,9 @@ export function WritingTurnBlock({
           - {isOpening ? `Opening by` : `By`} {author}
         </span>
       </div>
-      {drawingPath && <img src={getDrawingUrl(drawingPath)} alt="" />}
+      {drawingPath && (
+        <img className="w-full" src={getDrawingUrl(drawingPath)} alt="" />
+      )}
     </div>
   );
 }
