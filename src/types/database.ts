@@ -155,6 +155,7 @@ export type Database = {
         Row: {
           content: string
           created_at: string | null
+          drawing_path: string | null
           id: string
           story_id: string | null
           turn_order: number
@@ -163,6 +164,7 @@ export type Database = {
         Insert: {
           content: string
           created_at?: string | null
+          drawing_path?: string | null
           id?: string
           story_id?: string | null
           turn_order: number
@@ -171,6 +173,7 @@ export type Database = {
         Update: {
           content?: string
           created_at?: string | null
+          drawing_path?: string | null
           id?: string
           story_id?: string | null
           turn_order?: number

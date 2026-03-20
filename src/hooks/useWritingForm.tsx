@@ -1,20 +1,32 @@
 import { addNewStoryTurn } from "@services/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState, type SubmitEvent } from "react";
+import { type CanvasPath } from "react-sketch-canvas";
 
 export default function useWritingForm(storyId?: string) {
-  const [userInput, setUserInput] = useState("");
+  const [textDraft, setTextDraft] = useState("");
+  const [drawingPaths, setDrawingPaths] = useState<CanvasPath[]>([]);
+  const [drawingImage, setDrawingImage] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!userInput.trim() || !storyId) return;
-    console.log();
+    if (!textDraft.trim() || !storyId) return;
 
-    await addNewStoryTurn(storyId, userInput);
+    await addNewStoryTurn(storyId, textDraft, drawingImage);
     queryClient.invalidateQueries({ queryKey: ["turns", storyId] });
-    setUserInput("");
+    setTextDraft("");
+    setDrawingPaths([]);
+    setDrawingImage(null);
   };
 
-  return { userInput, setUserInput, handleSubmit };
+  return {
+    textDraft,
+    setTextDraft,
+    drawingPaths,
+    setDrawingPaths,
+    drawingImage,
+    setDrawingImage,
+    handleSubmit,
+  };
 }
