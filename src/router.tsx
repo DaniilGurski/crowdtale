@@ -12,6 +12,7 @@ import CreateStoryPage from "@pages/CreateStoryPage";
 import WritingSpacePage from "@pages/WritingSpacePage";
 import ProfilePage from "@pages/ProfilePage";
 import SignUpPage from "@pages/SignUpPage";
+import DrawPage from "@pages/DrawPage";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
           {
             path: "settings",
             element: <WritingSpaceSettings />,
+          },
+          {
+            path: "draw",
+            element: <DrawPage />,
           },
         ],
       },

@@ -1,10 +1,9 @@
-import DrawDialog from "@components/writing-space/DrawDialog";
 import { Button } from "@components/ui/button";
 import { useTurnsById } from "@hooks/useTurnsById";
 import { useUser } from "@hooks/useUser";
 import useWritingForm from "@hooks/useWritingForm";
 import { getNextWriter } from "@lib/utils";
-import { useParams } from "react-router";
+import { useParams, Link } from "react-router";
 
 export default function WritingForm() {
   const { user } = useUser();
@@ -32,7 +31,11 @@ export default function WritingForm() {
       />
 
       <div className="flex">
-        <DrawDialog />
+        <Link to={`/stories/${storyId}/draw`}>
+          <Button type="button" className="m-2 px-12">
+            Draw
+          </Button>
+        </Link>
 
         <Button
           type="submit"
