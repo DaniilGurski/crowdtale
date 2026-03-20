@@ -8,7 +8,7 @@ import { useParams, Link, useOutletContext } from "react-router";
 export default function WritingForm() {
   const { user } = useUser();
   const { id: storyId } = useParams();
-  const { textDraft, setTextDraft, handleSubmit } =
+  const { textDraft, setTextDraft, drawingImage, handleSubmit } =
     useOutletContext<ReturnType<typeof useWritingForm>>();
   const { data: story } = useTurnsById(storyId);
 
@@ -20,7 +20,7 @@ export default function WritingForm() {
 
   return (
     <form
-      className="writing-form-grid bg-card w-full justify-items-end rounded-t-4xl shadow-sm"
+      className="writing-form-grid bg-card relative w-full justify-items-end rounded-t-4xl shadow-sm"
       onSubmit={handleSubmit}
     >
       {/* I am using the standard textarea because I want the form to be styled as the one from Shadcn */}
@@ -46,6 +46,12 @@ export default function WritingForm() {
           Send
         </Button>
       </div>
+
+      {drawingImage && (
+        <span className="bg-card absolute top-0 right-0 -translate-y-1/2 rounded-4xl border border-neutral-800 p-4 shadow-2xl">
+          Drawing attached
+        </span>
+      )}
     </form>
   );
 }

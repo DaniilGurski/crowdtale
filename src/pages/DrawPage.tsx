@@ -18,7 +18,7 @@ export default function DrawPage() {
   const [eraserWidth, setEraserWidth] = useState(12);
   const [strokeColor, setStrokeColor] = useState("#000000");
   const [canvasColor, setCanvasColor] = useState("#ffffff");
-  const { drawingPaths, setDrawingPaths } =
+  const { drawingPaths, setDrawingPaths, setDrawingImage } =
     useOutletContext<ReturnType<typeof useWritingForm>>();
 
   const handlePenClick = () => {
@@ -35,6 +35,17 @@ export default function DrawPage() {
     if (!canvasRef.current) return;
 
     const paths = await canvasRef.current.exportPaths();
+
+    // If canvas is empty, unattach drawing
+    if (!paths.length) {
+      setDrawingImage(null);
+      setDrawingPaths([]);
+      navigate(-1);
+      return;
+    }
+
+    const image = await canvasRef.current.exportImage("png");
+    setDrawingImage(image);
     setDrawingPaths(paths);
     navigate(-1);
   };
@@ -144,17 +155,11 @@ export default function DrawPage() {
           />
         </div>
 
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            onClick={() => navigate(-1)}
-            className="flex-1"
-          >
+        <div className="grid grid-cols-2 gap-2">
+          <Button variant="outline" onClick={() => navigate(-1)}>
             Cancel
           </Button>
-          <Button onClick={handleSave} className="flex-1">
-            Save
-          </Button>
+          <Button onClick={handleSave}>Save</Button>
         </div>
       </div>
     </div>

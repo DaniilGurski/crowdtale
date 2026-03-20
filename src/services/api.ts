@@ -150,17 +150,36 @@ export const joinStory = async (storyId: string) => {
   if (error) throw error;
 };
 
-export const addNewStoryTurn = async (storyId: string, content: string) => {
+export const addNewStoryTurn = async (
+  storyId: string,
+  content: string,
+  drawingImage?: string | null,
+) => {
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) throw new Error("Unauthorized");
 
+  let storagePath = null;
+
+  if (drawingImage) {
+    const blob = await (await fetch(drawingImage)).blob();
+    const fileName = `${storyId}/${user.id}-${Date.now()}.png`;
+
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from("story-assets")
+      .upload(fileName, blob);
+
+    if (uploadError) throw uploadError;
+    storagePath = uploadData.path;
+  }
+
   const { error } = await supabase.rpc("create_turn", {
     p_story_id: storyId,
     p_user_id: user.id,
     p_content: content,
+    p_drawing_path: storagePath,
   });
 
   if (error) throw error;

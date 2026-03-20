@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import type { StoryWithTurns, StoryParticipantWithProfiles } from "@T/index";
+import { supabase } from "./supabase/client";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -63,4 +64,10 @@ export const getNextWriter = (
   // Round Robin logic: Go to next person, or loop to index 0
   const nextIndex = (lastWriterIndex + 1) % participants.length;
   return participants[nextIndex];
+};
+
+export const getDrawingUrl = (path: string) => {
+  const { data } = supabase.storage.from("story-assets").getPublicUrl(path);
+
+  return data.publicUrl;
 };

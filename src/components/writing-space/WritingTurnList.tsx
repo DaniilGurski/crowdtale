@@ -8,10 +8,11 @@ export default function WritingTurnsList({
 }) {
   return (
     <>
-      {turns.map(({ content, profiles }, index) => (
+      {turns.map(({ content, profiles, drawing_path }, index) => (
         <WritingTurnBlock
           key={index}
           text={content}
+          drawingPath={drawing_path}
           author={profiles!.username}
           isOpening={index <= 0}
         />

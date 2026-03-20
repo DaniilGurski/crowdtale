@@ -6,16 +6,18 @@ import { type CanvasPath } from "react-sketch-canvas";
 export default function useWritingForm(storyId?: string) {
   const [textDraft, setTextDraft] = useState("");
   const [drawingPaths, setDrawingPaths] = useState<CanvasPath[]>([]);
+  const [drawingImage, setDrawingImage] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!textDraft.trim() || !storyId) return;
 
-    await addNewStoryTurn(storyId, textDraft);
+    await addNewStoryTurn(storyId, textDraft, drawingImage);
     queryClient.invalidateQueries({ queryKey: ["turns", storyId] });
     setTextDraft("");
     setDrawingPaths([]);
+    setDrawingImage(null);
   };
 
   return {
@@ -23,6 +25,8 @@ export default function useWritingForm(storyId?: string) {
     setTextDraft,
     drawingPaths,
     setDrawingPaths,
+    drawingImage,
+    setDrawingImage,
     handleSubmit,
   };
 }
