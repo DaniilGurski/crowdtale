@@ -13,7 +13,7 @@ export default function WritingSpaceHeader() {
   const { refetch } = useTurnsById(storyId);
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location?.state?.from.pathname || "/";
+  const from = location?.state?.from?.pathname || "/";
 
   if (isPending) {
     return null;

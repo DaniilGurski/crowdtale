@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@components/ui/button";
 import { Slider } from "@components/ui/slider";
 import { Input } from "@components/ui/input";
 import { EraserIcon, Pen, Redo, Undo, X, ArrowLeft } from "lucide-react";
@@ -6,8 +6,9 @@ import {
   ReactSketchCanvas,
   type ReactSketchCanvasRef,
 } from "react-sketch-canvas";
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useOutletContext } from "react-router";
+import useWritingForm from "@hooks/useWritingForm";
 
 export default function DrawPage() {
   const navigate = useNavigate();
@@ -17,6 +18,8 @@ export default function DrawPage() {
   const [eraserWidth, setEraserWidth] = useState(12);
   const [strokeColor, setStrokeColor] = useState("#000000");
   const [canvasColor, setCanvasColor] = useState("#ffffff");
+  const { drawingPaths, setDrawingPaths } =
+    useOutletContext<ReturnType<typeof useWritingForm>>();
 
   const handlePenClick = () => {
     setIsEraserMode(false);
@@ -28,10 +31,22 @@ export default function DrawPage() {
     canvasRef.current?.eraseMode(true);
   };
 
-  const handleAttach = () => {
-    // TODO: Handle attaching the drawing to the story
+  const handleSave = async () => {
+    if (!canvasRef.current) return;
+
+    const paths = await canvasRef.current.exportPaths();
+    setDrawingPaths(paths);
     navigate(-1);
   };
+
+  // Load saved drawing
+  useEffect(() => {
+    if (!canvasRef.current) return;
+
+    if (drawingPaths?.length) {
+      canvasRef.current.loadPaths(drawingPaths);
+    }
+  }, [drawingPaths]);
 
   return (
     <div className="bg-card flex h-screen flex-col gap-4 p-4">
@@ -137,8 +152,8 @@ export default function DrawPage() {
           >
             Cancel
           </Button>
-          <Button onClick={handleAttach} className="flex-1">
-            Attach
+          <Button onClick={handleSave} className="flex-1">
+            Save
           </Button>
         </div>
       </div>

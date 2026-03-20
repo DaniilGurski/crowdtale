@@ -3,12 +3,13 @@ import { useTurnsById } from "@hooks/useTurnsById";
 import { useUser } from "@hooks/useUser";
 import useWritingForm from "@hooks/useWritingForm";
 import { getNextWriter } from "@lib/utils";
-import { useParams, Link } from "react-router";
+import { useParams, Link, useOutletContext } from "react-router";
 
 export default function WritingForm() {
   const { user } = useUser();
   const { id: storyId } = useParams();
-  const { userInput, setUserInput, handleSubmit } = useWritingForm(storyId);
+  const { textDraft, setTextDraft, handleSubmit } =
+    useOutletContext<ReturnType<typeof useWritingForm>>();
   const { data: story } = useTurnsById(storyId);
 
   if (!story || !user) {
@@ -26,8 +27,8 @@ export default function WritingForm() {
       <textarea
         className="caret-primary w-full resize-none border-none p-4 shadow-none focus:outline-0"
         placeholder="..."
-        value={userInput}
-        onChange={(e) => setUserInput(e.target.value)}
+        value={textDraft}
+        onChange={(e) => setTextDraft(e.target.value)}
       />
 
       <div className="flex">
